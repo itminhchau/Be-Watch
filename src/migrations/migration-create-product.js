@@ -24,6 +24,9 @@ module.exports = {
       size: {
         type: Sequelize.STRING,
       },
+      gender: {
+        type: Sequelize.STRING,
+      },
       count: {
         type: Sequelize.STRING,
       },
