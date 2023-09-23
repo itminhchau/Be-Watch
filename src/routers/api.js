@@ -1,14 +1,15 @@
 import express from 'express';
-import { handleGetProductOfCategorize } from '../controllers/productControllers';
+import { handleCreateProduct, handleGetProductOfCategorize, getAllCategorize } from '../controllers';
 
 let router = express.Router();
 
 const initAPIRouter = (app) => {
-  // api login user
+  // api get product in category
   router.get('/api/v1/get/product-of-categorize', handleGetProductOfCategorize);
-
-  //get doctor infor
-  // router.get('/api/v1/get/doctor-infor',doctorApiController.handleGetDoctorInfor)
+  // api create product
+  router.post('/api/v1/create/product', handleCreateProduct);
+  // get all categorize
+  router.get('/api/v1/get/categorize', getAllCategorize);
 
   app.use('/', router);
 };
