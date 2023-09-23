@@ -12,6 +12,9 @@ module.exports = {
       shoeSize: {
         type: Sequelize.STRING,
       },
+      nameSize: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

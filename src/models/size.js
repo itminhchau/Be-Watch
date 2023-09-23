@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Size.init(
     {
       shoeSize: DataTypes.STRING,
+      nameSize: DataTypes.STRING,
     },
     {
       sequelize,
