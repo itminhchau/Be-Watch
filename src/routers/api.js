@@ -1,5 +1,11 @@
 import express from 'express';
-import { handleCreateProduct, handleGetProductOfCategorize, getAllCategorize, getAllSize } from '../controllers';
+import {
+  handleCreateProduct,
+  handleGetProductOfCategorize,
+  getAllCategorize,
+  getAllSize,
+  handleGetAllProducts,
+} from '../controllers';
 
 let router = express.Router();
 
@@ -12,6 +18,8 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get/categorize', getAllCategorize);
   // get all size
   router.get('/api/v1/get/size', getAllSize);
+  //get all products;
+  router.get('/api/v1/get/products', handleGetAllProducts);
 
   app.use('/', router);
 };

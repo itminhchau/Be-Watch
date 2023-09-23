@@ -1,7 +1,7 @@
 import db from '../models';
 export const getProductOfCategorizeServices = (id) => {
   return new Promise(async (resolve, reject) => {
-    console.log('id', id);
+    // console.log('id', id);
 
     try {
       if (!id) {
@@ -30,7 +30,7 @@ export const getProductOfCategorizeServices = (id) => {
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
     const { nameProduct, price, description, image, size, gender, count, idCategorize } = data;
-    console.log('data', data);
+    // console.log('data', data);
     try {
       if (!nameProduct || !price || !description || !image || !size || !gender || !count || !idCategorize) {
         resolve({
@@ -53,6 +53,27 @@ export const createProductService = (data) => {
         errCode: 0,
         message: 'create product success',
       });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const getAllProducts = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const products = await db.Product.findAll({ raw: true, nest: true });
+      if (products) {
+        resolve({
+          data: products,
+          message: 'success',
+          errCode: 0,
+        });
+      } else {
+        reject({
+          errCode: 1,
+          message: 'failed get all products',
+        });
+      }
     } catch (error) {
       reject(error);
     }
