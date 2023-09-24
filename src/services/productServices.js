@@ -100,6 +100,12 @@ export const updateProductService = (data) => {
   return new Promise(async (resolve, reject) => {
     const { id, price, description, count } = data;
     try {
+      if (!id || !price || !description || !count) {
+        resolve({
+          errCode: 1,
+          message: 'missing parameter',
+        });
+      }
       const product = await db.Product.findOne({
         where: { id: id },
         raw: true,
