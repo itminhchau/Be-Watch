@@ -26,7 +26,8 @@ export const handleCreateProduct = async (req, res) => {
 };
 export const handleGetAllProducts = async (req, res) => {
   try {
-    let data = await getAllProducts();
+    let data = await getAllProducts(req.query);
+    // console.log(data, 'controller');
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({

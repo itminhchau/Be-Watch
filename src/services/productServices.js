@@ -58,13 +58,30 @@ export const createProductService = (data) => {
     }
   });
 };
-export const getAllProducts = () => {
+export const getAllProducts = (data) => {
   return new Promise(async (resolve, reject) => {
+    const { limit, page } = data;
     try {
-      const products = await db.Product.findAll({ raw: true, nest: true });
+      if (!limit || !page) {
+        resolve({
+          errCode: 1,
+          message: 'missing parameter',
+        });
+        return;
+      }
+
+      const offset = (page - 1) * limit;
+      const products = await db.Product.findAll({ offset, limit: parseInt(limit), raw: true, nest: true });
+      const total = await db.Product.count();
+
       if (products) {
         resolve({
           data: products,
+          pagination: {
+            limit,
+            page,
+            total,
+          },
           message: 'success',
           errCode: 0,
         });
