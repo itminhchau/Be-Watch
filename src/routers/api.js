@@ -5,6 +5,8 @@ import {
   getAllCategorize,
   getAllSize,
   handleGetAllProducts,
+  handleUpdateProduct,
+  handleDeleteSingleProduct,
 } from '../controllers';
 
 let router = express.Router();
@@ -20,6 +22,10 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get/size', getAllSize);
   //get all products;
   router.get('/api/v1/get/products', handleGetAllProducts);
+  //update single product
+  router.put('/api/v1/update/product', handleUpdateProduct);
+  //delete single product
+  router.delete('/api/v1/delete/product/:id', handleDeleteSingleProduct);
 
   app.use('/', router);
 };

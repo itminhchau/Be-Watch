@@ -58,7 +58,7 @@ export const createProductService = (data) => {
     }
   });
 };
-export const getAllProducts = (data) => {
+export const getAllProductsService = (data) => {
   return new Promise(async (resolve, reject) => {
     const { limit, page } = data;
     try {
@@ -89,6 +89,75 @@ export const getAllProducts = (data) => {
         reject({
           errCode: 1,
           message: 'failed get all products',
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const updateProductService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    const { id, price, description, count } = data;
+    try {
+      const product = await db.Product.findOne({
+        where: { id: id },
+        raw: true,
+      });
+      if (product) {
+        await db.Product.update(
+          {
+            price: price,
+            description: description,
+            count: count,
+          },
+          {
+            where: { id: id },
+          }
+        );
+        resolve({
+          errCode: 0,
+          message: 'update product success',
+        });
+      } else {
+        resolve({
+          errCode: 2,
+          message: 'product not found',
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const deleteProductService = (productId) => {
+  return new Promise(async (resolve, reject) => {
+    console.log('id', productId);
+    try {
+      if (!productId) {
+        resolve({
+          errCode: 1,
+          message: 'missing id product',
+        });
+      }
+      const product = await db.Product.findOne({
+        where: { id: productId },
+        raw: true,
+      });
+
+      console.log('product :', product);
+      if (product) {
+        await db.Product.destroy({
+          where: { id: productId },
+        });
+        resolve({
+          errCode: 0,
+          errMessage: `The Product is deleted successfully`,
+        });
+      } else {
+        resolve({
+          errCode: 2,
+          errMessage: "The Product isn't exist",
         });
       }
     } catch (error) {
