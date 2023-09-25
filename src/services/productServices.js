@@ -138,7 +138,6 @@ export const updateProductService = (data) => {
 };
 export const deleteProductService = (productId) => {
   return new Promise(async (resolve, reject) => {
-    console.log('id', productId);
     try {
       if (!productId) {
         resolve({
@@ -151,7 +150,6 @@ export const deleteProductService = (productId) => {
         raw: true,
       });
 
-      console.log('product :', product);
       if (product) {
         await db.Product.destroy({
           where: { id: productId },
