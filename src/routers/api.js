@@ -13,6 +13,8 @@ import {
   handleGetSingleUser,
   handleDeleteSingleUser,
   handleUpdateUser,
+  createImageProduct,
+  getTypeImageProduct,
 } from '../controllers';
 
 let router = express.Router();
@@ -44,6 +46,11 @@ const initAPIRouter = (app) => {
   router.delete('/api/v1/delete/user/:id', handleDeleteSingleUser);
   //update single user
   router.put('/api/v1/update/user', handleUpdateUser);
+  // create image product
+  router.post('/api/v1/create/image-product', createImageProduct);
+  // get type image
+  router.get('/api/v1/get/type-image', getTypeImageProduct);
+
   app.use('/', router);
 };
 

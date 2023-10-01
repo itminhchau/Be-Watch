@@ -29,10 +29,10 @@ export const getProductOfCategorizeServices = (id) => {
 
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { nameProduct, price, description, image, size, gender, count, idCategorize } = data;
+    const { nameProduct, price, description, rate, size, gender, count, idCategorize } = data;
     // console.log('data', data);
     try {
-      if (!nameProduct || !price || !description || !image || !size || !gender || !count || !idCategorize) {
+      if (!nameProduct || !price || !description || !rate || !size || !gender || !count || !idCategorize) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -43,7 +43,7 @@ export const createProductService = (data) => {
         nameProduct,
         price,
         description,
-        image,
+        rate,
         size,
         gender,
         count,
