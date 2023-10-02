@@ -24,10 +24,6 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get/product-of-categorize', handleGetProductOfCategorize);
   // api create product
   router.post('/api/v1/create/product', handleCreateProduct);
-  // get all categorize
-  router.get('/api/v1/get/categorize', getAllCategorize);
-  // get all size
-  router.get('/api/v1/get/size', getAllSize);
   //get all products;
   router.get('/api/v1/get/products', handleGetAllProducts);
   //update single product
@@ -48,8 +44,6 @@ const initAPIRouter = (app) => {
   router.put('/api/v1/update/user', handleUpdateUser);
   // create image product
   router.post('/api/v1/create/image-product', createImageProduct);
-  // get type image
-  router.get('/api/v1/get/type-image', getTypeImageProduct);
 
   app.use('/', router);
 };

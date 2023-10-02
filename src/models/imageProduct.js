@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       idProduct: DataTypes.INTEGER,
       idColor: DataTypes.INTEGER,
       url: DataTypes.STRING,
+      stock: DataTypes.FLOAT,
     },
     {
       sequelize,

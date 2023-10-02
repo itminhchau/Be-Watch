@@ -18,6 +18,9 @@ module.exports = {
       url: {
         type: Sequelize.STRING,
       },
+      stock: {
+        type: Sequelize.FLOAT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
