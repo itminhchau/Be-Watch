@@ -15,6 +15,8 @@ import {
   handleUpdateUser,
   createImageProduct,
   getTypeImageProduct,
+  handleGetAllBrands,
+  handleGetSingleProduct,
 } from '../controllers';
 
 let router = express.Router();
@@ -26,6 +28,8 @@ const initAPIRouter = (app) => {
   router.post('/api/v1/create/product', handleCreateProduct);
   //get all products;
   router.get('/api/v1/get/products', handleGetAllProducts);
+  //get single product
+  router.get('/api/v1/get-single/product', handleGetSingleProduct);
   //update single product
   router.put('/api/v1/update/product', handleUpdateProduct);
   //delete single product
@@ -44,6 +48,8 @@ const initAPIRouter = (app) => {
   router.put('/api/v1/update/user', handleUpdateUser);
   // create image product
   router.post('/api/v1/create/image-product', createImageProduct);
+  //get all brands
+  router.get('/api/v1/getall/brand', handleGetAllBrands);
 
   app.use('/', router);
 };

@@ -30,7 +30,7 @@ export const getProductOfCategorizeServices = (id) => {
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
     const { nameProduct, price, description, rate, idBrand } = data;
-    // console.log('data', data);
+
     try {
       if (!nameProduct || !price || !description || !rate || !idBrand) {
         resolve({
@@ -39,6 +39,7 @@ export const createProductService = (data) => {
         });
         return;
       }
+
       await db.Product.create({
         nameProduct,
         price,
@@ -55,39 +56,48 @@ export const createProductService = (data) => {
     }
   });
 };
-export const getAllProductsService = (data) => {
+export const getAllProductService = () => {
   return new Promise(async (resolve, reject) => {
-    const { limit, page } = data;
     try {
-      if (!limit || !page) {
+      const data = await db.Product.findAll();
+      resolve({
+        data,
+        errCode: 0,
+        message: 'get all product success',
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const getSingleProductService = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!id) {
         resolve({
           errCode: 1,
-          message: 'missing parameter',
+          message: 'missing parameter id',
         });
         return;
       }
+      const products = await db.Product.findOne({
+        where: { id: id },
+        raw: true,
+        nest: true,
+      });
 
-      const offset = (page - 1) * limit;
-      const products = await db.Product.findAll({ offset, limit: parseInt(limit), raw: true, nest: true });
-      const total = await db.Product.count();
-
-      if (products) {
+      if (!products) {
         resolve({
-          data: products,
-          pagination: {
-            limit,
-            page,
-            total,
-          },
-          message: 'success',
-          errCode: 0,
-        });
-      } else {
-        reject({
           errCode: 1,
-          message: 'failed get all products',
+          message: 'product not found',
         });
+        return;
       }
+      resolve({
+        products,
+        errCode: 0,
+        message: 'get  product success',
+      });
     } catch (error) {
       reject(error);
     }
