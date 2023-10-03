@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   createImageProduct,
+  handleCreateColor,
   handleCreateProduct,
   handleDeleteSingleProduct,
   handleDeleteSingleUser,
@@ -44,7 +45,8 @@ const initAPIRouter = (app) => {
   router.post('/api/v1/create/image-product', createImageProduct);
   //get all brands
   router.get('/api/v1/getall/brand', handleGetAllBrands);
-
+  //create color
+  router.post('/api/v1/create/color', handleCreateColor);
   app.use('/', router);
 };
 
