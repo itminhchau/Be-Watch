@@ -1,8 +1,9 @@
 import {
   createProductService,
   deleteProductService,
-  getAllProductsService,
+  getAllProductService,
   getProductOfCategorizeServices,
+  getSingleProductService,
   updateProductService,
 } from '../services';
 
@@ -32,8 +33,8 @@ export const handleCreateProduct = async (req, res) => {
 };
 export const handleGetAllProducts = async (req, res) => {
   try {
-    const data = await getAllProductsService(req.query);
-    // console.log(data, 'controller');
+    const data = await getAllProductService();
+    console.log(data, 'data');
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({
@@ -57,6 +58,17 @@ export const handleDeleteSingleProduct = async (req, res) => {
   try {
     let deleteProduct = await deleteProductService(req.params.id);
     return res.status(200).json(deleteProduct);
+  } catch (error) {
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: 'err form server ...',
+    });
+  }
+};
+export const handleGetSingleProduct = async (req, res) => {
+  try {
+    const data = await getSingleProductService(req.body.id);
+    return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({
       errCode: -1,
