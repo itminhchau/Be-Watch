@@ -80,13 +80,13 @@ export const getSingleProductService = async (id) => {
         });
         return;
       }
-      const products = await db.Product.findOne({
+      const data = await db.Product.findOne({
         where: { id: id },
         raw: true,
         nest: true,
       });
 
-      if (!products) {
+      if (!data) {
         resolve({
           errCode: 1,
           message: 'product not found',
@@ -94,7 +94,7 @@ export const getSingleProductService = async (id) => {
         return;
       }
       resolve({
-        products,
+        data,
         errCode: 0,
         message: 'get  product success',
       });
