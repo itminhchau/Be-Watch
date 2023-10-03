@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       price: DataTypes.FLOAT,
       description: DataTypes.TEXT('long'),
       rate: DataTypes.FLOAT,
-      count: DataTypes.INTEGER,
       idBrand: DataTypes.INTEGER,
     },
     {
