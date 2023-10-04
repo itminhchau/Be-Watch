@@ -15,6 +15,9 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT,
       },
+      shortDescription: {
+        type: Sequelize.TEXT('long'),
+      },
       description: {
         type: Sequelize.TEXT('long'),
       },
