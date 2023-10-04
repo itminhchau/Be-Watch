@@ -50,6 +50,7 @@ export const getImageProductService = (idProduct) => {
 export const getImageProductOfIdProductAndIdColorServices = (idProduct, idColor) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log('product');
       const data = await db.ImageProduct.findAll({
         where: { idProduct: idProduct, idColor: idColor },
         raw: true,
