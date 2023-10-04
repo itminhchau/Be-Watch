@@ -4,7 +4,7 @@ export const createImageProductServices = (data) => {
   return new Promise(async (resolve, reject) => {
     const { idProduct, idColor, url, stock } = data;
     try {
-      if (!idProduct || !url || !url || !stock) {
+      if (!idProduct || !idColor || !url || !stock) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -34,6 +34,24 @@ export const getImageProductService = (idProduct) => {
       const data = await db.ImageProduct.findAll({
         where: { idProduct: idProduct },
         include: [{ model: db.Color, as: 'colorProduct' }],
+        raw: true,
+        nest: true,
+      });
+      resolve({
+        data,
+        errCode: 0,
+        message: 'oke',
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const getImageProductOfIdProductAndIdColorServices = (idProduct, idColor) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await db.ImageProduct.findAll({
+        where: { idProduct: idProduct, idColor: idColor },
         raw: true,
         nest: true,
       });
