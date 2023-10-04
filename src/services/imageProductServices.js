@@ -52,10 +52,6 @@ export const getImageProductOfIdProductAndIdColorServices = (idProduct, idColor)
     try {
       const data = await db.ImageProduct.findAll({
         where: { idProduct: idProduct, idColor: idColor },
-        include: [
-          { model: db.Color, as: 'colorProduct' },
-          // { model: db.Product, as: 'imageProduct' },
-        ],
         raw: true,
         nest: true,
       });
