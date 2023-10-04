@@ -1,4 +1,4 @@
-import { createColorServices, getAllColorServices } from '../services';
+import { createColorServices, getAllColorServices, getColorImageProductServices } from '../services';
 
 export const handleCreateColor = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ export const handleCreateColor = async (req, res) => {
     });
   }
 };
-export const handleGetAllColor = async (req, res) => {
+export const handleGetAllColors = async (req, res) => {
   try {
     const data = await getAllColorServices();
     return res.status(200).json(data);

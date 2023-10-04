@@ -5,7 +5,7 @@ export const createProductService = (data) => {
     const { nameProduct, price, shortDescription, description, rate, idBrand } = data;
 
     try {
-      if (!nameProduct || !price || !description || !shortDescription || !rate || !idBrand) {
+      if (!nameProduct || !price || !shortDescription || !description || !rate || !idBrand) {
         resolve({
           errCode: 1,
           message: 'missing parameter',

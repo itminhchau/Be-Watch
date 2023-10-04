@@ -47,3 +47,25 @@ export const getImageProductService = (idProduct) => {
     }
   });
 };
+export const getImageProductOfIdProductAndIdColorServices = (idProduct, idColor) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await db.ImageProduct.findAll({
+        where: { idProduct: idProduct, idColor: idColor },
+        include: [
+          { model: db.Color, as: 'colorProduct' },
+          // { model: db.Product, as: 'imageProduct' },
+        ],
+        raw: true,
+        nest: true,
+      });
+      resolve({
+        data,
+        errCode: 0,
+        message: 'oke',
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
