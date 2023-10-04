@@ -14,6 +14,8 @@ import {
   handleRegisterUser,
   handleUpdateProduct,
   handleUpdateUser,
+  handleGetAllColors,
+  handleGetImageProduct,
 } from '../controllers';
 
 let router = express.Router();
@@ -47,6 +49,10 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/getall/brand', handleGetAllBrands);
   //create color
   router.post('/api/v1/create/color', handleCreateColor);
+  // get all color
+  router.get('/api/v1/get/colors', handleGetAllColors);
+  // get image of product
+  router.get('/api/v1/get/image-product', handleGetImageProduct);
   app.use('/', router);
 };
 

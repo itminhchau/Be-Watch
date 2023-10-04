@@ -26,3 +26,18 @@ export const createColorServices = (data) => {
     }
   });
 };
+
+export const getAllColorServices = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await db.Color.findAll();
+      resolve({
+        data,
+        errCode: 0,
+        message: 'get all color success',
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

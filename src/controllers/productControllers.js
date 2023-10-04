@@ -20,7 +20,6 @@ export const handleCreateProduct = async (req, res) => {
 export const handleGetAllProducts = async (req, res) => {
   try {
     const data = await getAllProductService();
-    console.log(data, 'data');
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({

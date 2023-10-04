@@ -10,7 +10,6 @@ import {
 export const handleRegisterUser = async (req, res) => {
   try {
     const data = await registerUserServices(req.body);
-    // console.log('check data', data);
     return res.status(201).json(data);
   } catch (error) {
     return res.status(500).json({
