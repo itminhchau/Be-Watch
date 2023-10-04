@@ -6,6 +6,7 @@ import {
   handleDeleteSingleProduct,
   handleDeleteSingleUser,
   handleGetAllBrands,
+  handleGetAllColor,
   handleGetAllProducts,
   handleGetAllUser,
   handleGetSingleProduct,

@@ -12,7 +12,6 @@ export const createColorServices = (data) => {
         });
         return;
       }
-
       await db.Color.create({
         hexCode,
         nameColor,
@@ -26,7 +25,6 @@ export const createColorServices = (data) => {
     }
   });
 };
-
 export const getAllColorServices = () => {
   return new Promise(async (resolve, reject) => {
     try {
