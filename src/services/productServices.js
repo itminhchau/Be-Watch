@@ -2,10 +2,10 @@ import db from '../models';
 
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { nameProduct, price, shortDescription, description, rate, idBrand } = data;
+    const { nameProduct, price, shortDescription, description, quantitySold, rate, idBrand } = data;
 
     try {
-      if (!nameProduct || !price || !shortDescription || !description || !rate || !idBrand) {
+      if (!nameProduct || !price || !shortDescription || !description || !quantitySold || !rate || !idBrand) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -18,6 +18,7 @@ export const createProductService = (data) => {
         price,
         shortDescription,
         description,
+        quantitySold,
         rate,
         idBrand,
       });
