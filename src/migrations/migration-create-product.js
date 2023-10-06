@@ -21,6 +21,9 @@ module.exports = {
       description: {
         type: Sequelize.TEXT('long'),
       },
+      quantitySold: {
+        type: Sequelize.INTEGER,
+      },
       rate: {
         type: Sequelize.FLOAT,
       },
