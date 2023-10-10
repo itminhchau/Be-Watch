@@ -31,11 +31,26 @@ export const createProductService = (data) => {
     }
   });
 };
-export const getAllProductService = () => {
+export const getAllProductService = (data) => {
   return new Promise(async (resolve, reject) => {
+    const { page, limit } = data;
     try {
-      const data = await db.Product.findAll();
+      if (!page || !limit) {
+        resolve({
+          errCode: 1,
+          message: 'missing parameter',
+        });
+      }
+
+      let offset = (page - 1) * limit;
+      const data = await db.Product.findAll({ offset, limit: parseInt(limit) });
+      const count = await db.Product.count();
       resolve({
+        pagination: {
+          page,
+          limit,
+          total: count,
+        },
         data,
         errCode: 0,
         message: 'get all product success',
