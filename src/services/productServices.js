@@ -1,4 +1,5 @@
 import db from '../models';
+import imageProduct from '../models/imageProduct';
 
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -70,12 +71,12 @@ export const getSingleProductService = async (id) => {
         });
         return;
       }
-      const data = await db.Product.findOne({
+      const data = await db.Product.findAll({
         where: { id: id },
+        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
         raw: true,
         nest: true,
       });
-
       if (!data) {
         resolve({
           errCode: 1,
@@ -83,11 +84,21 @@ export const getSingleProductService = async (id) => {
         });
         return;
       }
-      resolve({
-        data,
-        errCode: 0,
-        message: 'get  product success',
-      });
+      if (data) {
+        const newData = {
+          id: data[0].id,
+          nameProduct: data[0].nameProduct,
+          price: data[0].price,
+          shortDescription: data[0].shortDescription,
+          description: data[0].description,
+          imageProduct: data.map((item) => item.imageProduct),
+        };
+        resolve({
+          data: newData,
+          errCode: 0,
+          message: 'get  product success',
+        });
+      }
     } catch (error) {
       reject(error);
     }

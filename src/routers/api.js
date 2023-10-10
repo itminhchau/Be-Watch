@@ -30,7 +30,7 @@ const initAPIRouter = (app) => {
   //get all products;
   router.get('/api/v1/get/products', handleGetAllProducts);
   //get single product
-  router.get('/api/v1/get-single/product', handleGetSingleProduct);
+  router.get('/api/v1/get-single/product/:id', handleGetSingleProduct);
   //update single product
   router.put('/api/v1/update/product', handleUpdateProduct);
   //delete single product
