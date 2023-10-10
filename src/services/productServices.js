@@ -151,3 +151,31 @@ export const deleteProductService = (productId) => {
     }
   });
 };
+
+export const getAllProductOfBrandService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!id) {
+        resolve({
+          errCode: 1,
+          message: 'missing id brand',
+        });
+        return;
+      }
+      const data = await db.Product.findAll({
+        where: { idBrand: id },
+        attributes: {
+          exclude: ['shortDescription', 'description', 'quantitySold'],
+        },
+        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
+      });
+      resolve({
+        data,
+        errCode: 0,
+        message: 'oke',
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

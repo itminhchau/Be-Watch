@@ -19,6 +19,7 @@ import {
   handleGetImageProduct,
   handleGetColorImageProduct,
   handleGetImageProductOfIdProductAndIdColor,
+  handleGetAllProductOfBrand,
 } from '../controllers';
 
 let router = express.Router();
@@ -58,6 +59,9 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get/image-product', handleGetImageProduct);
   // get image of product and color
   router.get('/api/v1/get/image-product-color', handleGetImageProductOfIdProductAndIdColor);
+
+  //get product of brand
+  router.get('/api/v1/get/product-of-brand', handleGetAllProductOfBrand);
   app.use('/', router);
 };
 
