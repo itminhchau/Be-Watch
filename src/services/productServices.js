@@ -44,7 +44,11 @@ export const getAllProductService = (data) => {
       }
 
       let offset = (page - 1) * limit;
-      const data = await db.Product.findAll({ offset, limit: parseInt(limit) });
+      const data = await db.Product.findAll({
+        offset,
+        limit: parseInt(limit),
+        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
+      });
       const count = await db.Product.count();
       resolve({
         pagination: {
