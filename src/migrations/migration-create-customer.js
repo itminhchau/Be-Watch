@@ -27,9 +27,6 @@ module.exports = {
       phoneNumber: {
         type: Sequelize.STRING,
       },
-      image: {
-        type: Sequelize.STRING,
-      },
       gender: {
         type: Sequelize.STRING,
       },

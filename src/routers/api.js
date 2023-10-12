@@ -20,6 +20,10 @@ import {
   handleGetColorImageProduct,
   handleGetImageProductOfIdProductAndIdColor,
   handleGetAllProductOfBrand,
+  handleRegisterCustomer,
+  handleLoginCustomer,
+  handleGetAllCustomer,
+  handleGetSingleCustomer,
 } from '../controllers';
 
 let router = express.Router();
@@ -62,6 +66,15 @@ const initAPIRouter = (app) => {
 
   //get product of brand
   router.get('/api/v1/get/product-of-brand', handleGetAllProductOfBrand);
+  //customer
+  //register customer
+  router.post('/api/v1/create/customer', handleRegisterCustomer);
+  //login customer
+  router.post('/api/v1/login/customer', handleLoginCustomer);
+  //get all customer
+  router.get('/api/v1/getall/customer', handleGetAllCustomer);
+  //get single customer
+  router.get('/api/v1/get-single/customer', handleGetSingleCustomer);
   app.use('/', router);
 };
 
