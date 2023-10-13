@@ -98,6 +98,7 @@ export const loginCustomerServices = (email, password) => {
         const refresh_token = generalRefreshToken({ id: customer.id });
         delete customer.password;
         resolve({
+          customer,
           access_token,
           refresh_token,
           errCode: 0,
