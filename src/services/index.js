@@ -4,3 +4,4 @@ export * from './imageProductServices';
 export * from './brandServices';
 export * from './colorServices';
 export * from './customerServices';
+export * from './cartServices';

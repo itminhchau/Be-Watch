@@ -24,6 +24,9 @@ module.exports = {
       quantitySold: {
         type: Sequelize.INTEGER,
       },
+      totalStock: {
+        type: Sequelize.INTEGER,
+      },
       rate: {
         type: Sequelize.FLOAT,
       },

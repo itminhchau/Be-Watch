@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       shortDescription: DataTypes.TEXT('long'),
       description: DataTypes.TEXT('long'),
       quantitySold: DataTypes.INTEGER,
+      totalStock: DataTypes.INTEGER,
       rate: DataTypes.FLOAT,
       idBrand: DataTypes.INTEGER,
     },
