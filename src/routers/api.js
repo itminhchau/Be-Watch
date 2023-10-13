@@ -24,6 +24,7 @@ import {
   handleLoginCustomer,
   handleGetAllCustomer,
   handleGetSingleCustomer,
+  handleGetProductNew,
 } from '../controllers';
 
 let router = express.Router();
@@ -75,6 +76,8 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/getall/customer', handleGetAllCustomer);
   //get single customer
   router.get('/api/v1/get-single/customer', handleGetSingleCustomer);
+  //get new product
+  router.get('/api/v1/get-new/product', handleGetProductNew);
   app.use('/', router);
 };
 

@@ -65,6 +65,7 @@ export const getAllProductService = (data) => {
     }
   });
 };
+
 export const getSingleProductService = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -204,6 +205,32 @@ export const getAllProductOfBrandService = (id) => {
         errCode: 0,
         message: 'oke',
       });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const getProductNewService = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const product = await db.Product.findAll({
+        order: [['createdAt', 'DESC']],
+        limit: 10,
+        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
+      });
+      if (product) {
+        resolve({
+          data: product,
+          errCode: 0,
+          message: 'get product new successfully',
+        });
+        return;
+      } else {
+        resolve({
+          errCode: 1,
+          message: 'get product new failed',
+        });
+      }
     } catch (error) {
       reject(error);
     }
