@@ -1,31 +1,30 @@
 import express from 'express';
 import {
   createImageProduct,
+  handleCreateCart,
   handleCreateColor,
   handleCreateProduct,
   handleDeleteSingleProduct,
   handleDeleteSingleUser,
   handleGetAllBrands,
-  handleGetAllColor,
+  handleGetAllColors,
+  handleGetAllCustomer,
+  handleGetAllProductOfBrand,
   handleGetAllProducts,
   handleGetAllUser,
+  handleGetImageProduct,
+  handleGetImageProductOfIdProductAndIdColor,
+  handleGetSingleCustomer,
   handleGetSingleProduct,
   handleGetSingleUser,
+  handleLoginCustomer,
   handleLoginUser,
+  handleRegisterCustomer,
   handleRegisterUser,
   handleUpdateProduct,
   handleUpdateUser,
-  handleGetAllColors,
-  handleGetImageProduct,
-  handleGetColorImageProduct,
-  handleGetImageProductOfIdProductAndIdColor,
-  handleGetAllProductOfBrand,
-  handleRegisterCustomer,
-  handleLoginCustomer,
-  handleGetAllCustomer,
-  handleGetSingleCustomer,
-  handleCreateCart,
 } from '../controllers';
+import middlewareController from '../controllers/middlewareController';
 
 let router = express.Router();
 

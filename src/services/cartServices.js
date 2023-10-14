@@ -2,10 +2,10 @@ import db from '../models';
 
 export const createCartServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { idProduct, idCustomer, quantity, status } = data;
+    const { ImageProductId, CustomerId, quantity, status } = data;
     console.log(data);
     try {
-      if (!idProduct || !idCustomer || !quantity || !status) {
+      if (!ImageProductId || !CustomerId || !quantity || !status) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -13,8 +13,8 @@ export const createCartServices = (data) => {
         return;
       }
       const data = await db.Cart.create({
-        idProduct: parseInt(idProduct),
-        idCustomer: parseInt(idCustomer),
+        ImageProductId: parseInt(ImageProductId),
+        CustomerId: parseInt(CustomerId),
         quantity: parseInt(quantity),
         status,
       });

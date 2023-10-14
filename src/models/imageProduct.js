@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       ImageProduct.belongsTo(models.Product, { foreignKey: 'idProduct', as: 'imageProduct' });
       ImageProduct.belongsTo(models.Color, { foreignKey: 'idColor', as: 'colorProduct' });
+      ImageProduct.belongsToMany(models.Customer, { through: models.Cart });
     }
   }
   ImageProduct.init(
