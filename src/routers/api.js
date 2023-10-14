@@ -30,6 +30,17 @@ import {
   handleUpdateProduct,
   handleUpdateQuantityCart,
   handleUpdateUser,
+  handleGetAllColors,
+  handleGetImageProduct,
+  handleGetColorImageProduct,
+  handleGetImageProductOfIdProductAndIdColor,
+  handleGetAllProductOfBrand,
+  handleRegisterCustomer,
+  handleLoginCustomer,
+  handleGetAllCustomer,
+  handleGetSingleCustomer,
+  handleCreateCart,
+  handleGetProductNew,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
 
@@ -70,7 +81,6 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get/image-product', handleGetImageProduct);
   // get image of product and color
   router.get('/api/v1/get/image-product-color', handleGetImageProductOfIdProductAndIdColor);
-
   //get product of brand
   router.get('/api/v1/get/filter/all/product', handleGetFilterAllProduct);
   //customer
