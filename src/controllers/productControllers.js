@@ -3,6 +3,7 @@ import {
   deleteProductService,
   getAllProductOfBrandService,
   getAllProductService,
+  getProductNewService,
   getSingleProductService,
   updateProductService,
 } from '../services';
@@ -67,6 +68,17 @@ export const handleGetSingleProduct = async (req, res) => {
 export const handleGetAllProductOfBrand = async (req, res) => {
   try {
     const data = await getAllProductOfBrandService(req.query.idBrand);
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: 'err form server ...',
+    });
+  }
+};
+export const handleGetProductNew = async (req, res) => {
+  try {
+    const data = await getProductNewService();
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({

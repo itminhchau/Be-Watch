@@ -3,10 +3,19 @@ import imageProduct from '../models/imageProduct';
 
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { nameProduct, price, shortDescription, description, quantitySold, rate, idBrand } = data;
+    const { nameProduct, price, shortDescription, description, quantitySold, totalStock, rate, idBrand } = data;
 
     try {
-      if (!nameProduct || !price || !shortDescription || !description || !quantitySold || !rate || !idBrand) {
+      if (
+        !nameProduct ||
+        !price ||
+        !shortDescription ||
+        !description ||
+        !quantitySold ||
+        !totalStock ||
+        !rate ||
+        !idBrand
+      ) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -20,6 +29,7 @@ export const createProductService = (data) => {
         shortDescription,
         description,
         quantitySold,
+        totalStock,
         rate,
         idBrand,
       });
@@ -204,6 +214,32 @@ export const getAllProductOfBrandService = (id) => {
         errCode: 0,
         message: 'oke',
       });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const getProductNewService = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const product = await db.Product.findAll({
+        order: [['createdAt', 'DESC']],
+        limit: 10,
+        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
+      });
+      if (product) {
+        resolve({
+          data: product,
+          errCode: 0,
+          message: 'get product new successfully',
+        });
+        return;
+      } else {
+        resolve({
+          errCode: 1,
+          message: 'get product new failed',
+        });
+      }
     } catch (error) {
       reject(error);
     }

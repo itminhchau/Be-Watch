@@ -25,6 +25,7 @@ import {
   handleGetAllCustomer,
   handleGetSingleCustomer,
   handleCreateCart,
+  handleGetProductNew,
 } from '../controllers';
 
 let router = express.Router();
@@ -78,6 +79,9 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get-single/customer', handleGetSingleCustomer);
   // add  to card
   router.post('/api/v1/create/cart', handleCreateCart);
+  //get new product
+  router.get('/api/v1/get-new/product', handleGetProductNew);
+
   app.use('/', router);
 };
 
