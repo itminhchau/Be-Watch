@@ -7,6 +7,7 @@ import {
   handleDeleteSingleProduct,
   handleDeleteSingleUser,
   handleGetAllBrands,
+  handleGetAllCart,
   handleGetAllColors,
   handleGetAllCustomer,
   handleGetAllProductOfBrand,
@@ -14,6 +15,7 @@ import {
   handleGetAllUser,
   handleGetImageProduct,
   handleGetImageProductOfIdProductAndIdColor,
+  handleGetProductNew,
   handleGetSingleCustomer,
   handleGetSingleProduct,
   handleGetSingleUser,
@@ -76,7 +78,12 @@ const initAPIRouter = (app) => {
   //get single customer
   router.get('/api/v1/get-single/customer', handleGetSingleCustomer);
   // add  to card
-  router.post('/api/v1/create/cart', handleCreateCart);
+  router.post('/api/v1/create/cart', middlewareController.verifyToken, handleCreateCart);
+  //get new product
+  router.get('/api/v1/get-new/product', handleGetProductNew);
+  //get all Cart
+  router.get('/api/v1/getall/cart', handleGetAllCart);
+
   app.use('/', router);
 };
 
