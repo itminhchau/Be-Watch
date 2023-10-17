@@ -132,3 +132,64 @@ export const deleteCartServices = (id) => {
     }
   });
 };
+
+export const updateQuantityCartServices = (id, mode) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!id || !mode) {
+        resolve({
+          errCode: 1,
+          message: 'missing parameter',
+        });
+        return;
+      } else {
+        const ItemCart = await db.Cart.findOne({
+          where: { id: id },
+        });
+        if (ItemCart) {
+          switch (mode) {
+            case 'sum':
+              await db.Cart.update(
+                {
+                  quantity: ItemCart.quantity + 1,
+                },
+                {
+                  where: { id: id },
+                }
+              );
+              resolve({
+                errCode: 0,
+                message: 'update sum cart success',
+              });
+              break;
+            case 'sub':
+              await db.Cart.update(
+                {
+                  quantity: ItemCart.quantity - 1,
+                },
+                {
+                  where: { id: id },
+                }
+              );
+              resolve({
+                errCode: 0,
+                message: 'update sub cart success',
+              });
+              break;
+
+            default:
+              break;
+          }
+        } else {
+          resolve({
+            errCode: 2,
+            message: 'item not exits',
+          });
+        }
+      }
+    } catch (error) {
+      console.log('check error', error);
+      reject(error);
+    }
+  });
+};

@@ -1,4 +1,10 @@
-import { createCartServices, deleteCartServices, getAllCartServices } from '../services';
+import {
+  createCartServices,
+  deleteCartServices,
+  getAllCartServices,
+  getUpdateQuantityCartServices,
+  updateQuantityCartServices,
+} from '../services';
 
 export const handleCreateCart = async (req, res) => {
   const value = req.body;
@@ -26,8 +32,19 @@ export const handleGetAllCart = async (req, res) => {
 
 export const handleDeleteCart = async (req, res) => {
   try {
-    console.log('check id:', req.body);
     const data = await deleteCartServices(req.params.id);
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      errCode: -1,
+      message: 'error from server',
+    });
+  }
+};
+export const handleUpdateQuantityCart = async (req, res) => {
+  try {
+    const { id, mode } = req.body;
+    const data = await updateQuantityCartServices(id, mode);
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({

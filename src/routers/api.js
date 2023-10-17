@@ -25,6 +25,7 @@ import {
   handleRegisterCustomer,
   handleRegisterUser,
   handleUpdateProduct,
+  handleUpdateQuantityCart,
   handleUpdateUser,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
@@ -86,6 +87,8 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/getall/cart', middlewareController.verifyToken, handleGetAllCart);
   //delete cart
   router.delete('/api/v1/delete/cart/:id', handleDeleteCart);
+  //router update quantity cart
+  router.put('/api/v1/update/quantity/cart', handleUpdateQuantityCart);
 
   app.use('/', router);
 };
