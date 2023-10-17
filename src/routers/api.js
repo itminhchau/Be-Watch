@@ -4,6 +4,7 @@ import {
   handleCreateCart,
   handleCreateColor,
   handleCreateProduct,
+  handleDeleteCart,
   handleDeleteSingleProduct,
   handleDeleteSingleUser,
   handleGetAllBrands,
@@ -82,7 +83,9 @@ const initAPIRouter = (app) => {
   //get new product
   router.get('/api/v1/get-new/product', handleGetProductNew);
   //get all Cart
-  router.get('/api/v1/getall/cart', handleGetAllCart);
+  router.get('/api/v1/getall/cart', middlewareController.verifyToken, handleGetAllCart);
+  //delete cart
+  router.delete('/api/v1/delete/cart/:id', handleDeleteCart);
 
   app.use('/', router);
 };

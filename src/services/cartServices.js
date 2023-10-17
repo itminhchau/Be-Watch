@@ -59,6 +59,7 @@ export const getAllCartServices = (idCustomer) => {
     try {
       const data = await db.Cart.findAll({
         where: { CustomerId: idCustomer },
+        attributes: ['id', 'ImageProductId', 'CustomerId', 'quantity', 'status'],
         include: [
           {
             model: db.ImageProduct,
@@ -71,7 +72,7 @@ export const getAllCartServices = (idCustomer) => {
                 },
               },
             ],
-            // attributes: ['product_id', 'other_columns'], // Lấy các cột của bảng Product bạn muốn
+            // attributes: ['product_id', 'other_columns'], // Lấy các cột của bảng ImageProduct bạn muốn
           },
           // {
           //   model: db.Customer,
@@ -88,6 +89,43 @@ export const getAllCartServices = (idCustomer) => {
         message: 'oke',
         data,
       });
+    } catch (error) {
+      console.log('check error', error);
+      reject(error);
+    }
+  });
+};
+
+export const deleteCartServices = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!id) {
+        resolve({
+          errCode: 1,
+          message: 'missing parameter',
+        });
+        return;
+      }
+
+      const cart = await db.Cart.findOne({
+        where: { id: id },
+        raw: true,
+      });
+
+      if (cart) {
+        await db.Cart.destroy({
+          where: { id: id },
+        });
+        resolve({
+          errCode: 0,
+          errMessage: `The cart is deleted successfully`,
+        });
+      } else {
+        resolve({
+          errCode: 2,
+          errMessage: "The cart isn't exist",
+        });
+      }
     } catch (error) {
       console.log('check error', error);
       reject(error);
