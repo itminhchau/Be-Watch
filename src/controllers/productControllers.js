@@ -3,6 +3,7 @@ import {
   deleteProductService,
   getAllProductOfBrandService,
   getAllProductService,
+  getFilterAllProductService,
   getProductNewService,
   getSingleProductService,
   updateProductService,
@@ -19,17 +20,17 @@ export const handleCreateProduct = async (req, res) => {
     });
   }
 };
-export const handleGetAllProducts = async (req, res) => {
-  try {
-    const data = await getAllProductService(req.query);
-    return res.status(200).json(data);
-  } catch (error) {
-    return res.status(500).json({
-      errCode: -1,
-      errMessage: 'err form server ...',
-    });
-  }
-};
+// export const handleGetAllProducts = async (req, res) => {
+//   try {
+//     const data = await getAllProductService(req.query);
+//     return res.status(200).json(data);
+//   } catch (error) {
+//     return res.status(500).json({
+//       errCode: -1,
+//       errMessage: 'err form server ...',
+//     });
+//   }
+// };
 export const handleUpdateProduct = async (req, res) => {
   try {
     const data = await updateProductService(req.body);
@@ -64,9 +65,10 @@ export const handleGetSingleProduct = async (req, res) => {
   }
 };
 
-export const handleGetAllProductOfBrand = async (req, res) => {
+export const handleGetFilterAllProduct = async (req, res) => {
   try {
-    const data = await getAllProductOfBrandService(req.query.idBrand);
+    console.log('req', req.query);
+    const data = await getFilterAllProductService(req.query);
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({

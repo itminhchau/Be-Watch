@@ -11,9 +11,9 @@ import {
   handleGetAllCart,
   handleGetAllColors,
   handleGetAllCustomer,
-  handleGetAllProductOfBrand,
   handleGetAllProducts,
   handleGetAllUser,
+  handleGetFilterAllProduct,
   handleGetImageProduct,
   handleGetImageProductOfIdProductAndIdColor,
   handleGetProductNew,
@@ -35,8 +35,8 @@ let router = express.Router();
 const initAPIRouter = (app) => {
   // api create product
   router.post('/api/v1/create/product', handleCreateProduct);
-  //get all products;
-  router.get('/api/v1/get/products', handleGetAllProducts);
+  // //get all products;
+  // router.get('/api/v1/get/products', handleGetAllProducts);
   //get single product
   router.get('/api/v1/get-single/product/:id', handleGetSingleProduct);
   //update single product
@@ -69,7 +69,7 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get/image-product-color', handleGetImageProductOfIdProductAndIdColor);
 
   //get product of brand
-  router.get('/api/v1/get/product-of-brand', handleGetAllProductOfBrand);
+  router.get('/api/v1/get/filter/all/product', handleGetFilterAllProduct);
   //customer
   //register customer
   router.post('/api/v1/create/customer', handleRegisterCustomer);

@@ -42,39 +42,39 @@ export const createProductService = (data) => {
     }
   });
 };
-export const getAllProductService = (data) => {
-  return new Promise(async (resolve, reject) => {
-    const { page, limit } = data;
-    try {
-      if (!page || !limit) {
-        resolve({
-          errCode: 1,
-          message: 'missing parameter',
-        });
-      }
+// export const getAllProductService = (data) => {
+//   return new Promise(async (resolve, reject) => {
+//     const { page, limit } = data;
+//     try {
+//       if (!page || !limit) {
+//         resolve({
+//           errCode: 1,
+//           message: 'missing parameter',
+//         });
+//       }
 
-      let offset = (page - 1) * limit;
-      const data = await db.Product.findAll({
-        offset,
-        limit: parseInt(limit),
-        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
-      });
-      const count = await db.Product.count();
-      resolve({
-        pagination: {
-          page,
-          limit,
-          total: count,
-        },
-        data,
-        errCode: 0,
-        message: 'get all product success',
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
+//       let offset = (page - 1) * limit;
+//       const data = await db.Product.findAll({
+//         offset,
+//         limit: parseInt(limit),
+//         include: [{ model: db.ImageProduct, as: 'imageProduct' }],
+//       });
+//       const count = await db.Product.count();
+//       resolve({
+//         pagination: {
+//           page,
+//           limit,
+//           total: count,
+//         },
+//         data,
+//         errCode: 0,
+//         message: 'get all product success',
+//       });
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// };
 export const getSingleProductService = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -192,18 +192,37 @@ export const deleteProductService = (productId) => {
   });
 };
 
-export const getAllProductOfBrandService = (id) => {
+export const getFilterAllProductService = (data) => {
   return new Promise(async (resolve, reject) => {
+    const { idBrand, modePrice, page, limit } = data;
     try {
-      if (!id) {
+      if (!page || !limit) {
         resolve({
           errCode: 1,
-          message: 'missing id brand',
+          message: 'missing parameter',
         });
         return;
       }
+
+      const where = {};
+      const order = [];
+      let offset = (page - 1) * limit;
+
+      if (idBrand) {
+        where.idBrand = idBrand;
+      }
+      if (modePrice === 'ASC') {
+        order.push(['price', 'ASC']);
+      }
+      if (modePrice === 'DESC') {
+        order.push(['price', 'DESC']);
+      }
+      const count = await db.Product.count();
       const data = await db.Product.findAll({
-        where: { idBrand: id },
+        offset,
+        limit: parseInt(limit),
+        where,
+        order,
         attributes: {
           exclude: ['shortDescription', 'description', 'quantitySold'],
         },
@@ -211,10 +230,16 @@ export const getAllProductOfBrandService = (id) => {
       });
       resolve({
         data,
+        pagination: {
+          page,
+          limit,
+          total: count,
+        },
         errCode: 0,
         message: 'oke',
       });
     } catch (error) {
+      console.log('check error', error);
       reject(error);
     }
   });
