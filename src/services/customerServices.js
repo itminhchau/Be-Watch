@@ -39,7 +39,7 @@ export const registerCustomerServices = (data) => {
       if (emailExists) {
         resolve({
           errCode: 1,
-          message: 'Email already exists',
+          message: 'Email đã tồn tại',
         });
         return;
       }
@@ -80,7 +80,7 @@ export const loginCustomerServices = (email, password) => {
       if (!customer) {
         resolve({
           errCode: 1,
-          message: 'Email is incorrect or does not exist',
+          message: 'Email không chính xác hoặc không tồn tại',
         });
         return;
       }
@@ -89,7 +89,7 @@ export const loginCustomerServices = (email, password) => {
       if (!checkPassword) {
         resolve({
           errCode: 1,
-          message: 'Password is incorrect ',
+          message: 'Mật khẩu không đúng ',
         });
         return;
       }

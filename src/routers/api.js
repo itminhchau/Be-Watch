@@ -30,16 +30,6 @@ import {
   handleUpdateProduct,
   handleUpdateQuantityCart,
   handleUpdateUser,
-  handleGetAllColors,
-  handleGetImageProduct,
-  handleGetColorImageProduct,
-  handleGetImageProductOfIdProductAndIdColor,
-  handleGetAllProductOfBrand,
-  handleRegisterCustomer,
-  handleLoginCustomer,
-  handleGetAllCustomer,
-  handleGetSingleCustomer,
-  handleCreateCart,
   handleGetProductNew,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
