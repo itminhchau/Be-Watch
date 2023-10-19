@@ -18,7 +18,6 @@ import {
   handleGetFilterAllProduct,
   handleGetImageProduct,
   handleGetImageProductOfIdProductAndIdColor,
-  handleGetProductNew,
   handleGetSingleCustomer,
   handleGetSingleProduct,
   handleGetSingleUser,
@@ -84,8 +83,7 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get-single/customer', handleGetSingleCustomer);
   // add  to card
   router.post('/api/v1/create/cart', middlewareController.verifyToken, handleCreateCart);
-  //get new product
-  router.get('/api/v1/get-new/product', handleGetProductNew);
+
   //get all Cart
   router.get('/api/v1/getall/cart', middlewareController.verifyToken, handleGetAllCart);
   //delete cart
