@@ -7,8 +7,19 @@ const middlewareController = {
     if (accesstoken !== 'null') {
       jwt.verify(accesstoken, process.env.JWT_ACCESS_KEY, (err, user) => {
         if (err) {
-          res.status(403).json('Token is not valid');
+          console.log('err', err);
+          if (err.message === 'jwt expired') {
+            return res.status(403).json({
+              errCode: -1,
+              message: 'Token expired',
+            });
+          }
+          res.status(403).json({
+            errCode: 1,
+            message: 'Token is not valid',
+          });
         } else {
+          console.log('user ', user);
           req.user = user;
           next();
         }

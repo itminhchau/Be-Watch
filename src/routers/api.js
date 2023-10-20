@@ -30,6 +30,7 @@ import {
   handleUpdateQuantityCart,
   handleUpdateUser,
   handleGetProductNew,
+  handleRefreshTokenCustomer,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
 
@@ -99,6 +100,10 @@ const initAPIRouter = (app) => {
   //router get detail order
   router.get('/api/v1/get/detail/order', handleGetDetailOrder);
 
+  //get new product
+  router.get('/api/v1/get-new/product', handleGetProductNew);
+  //refresherToken customer
+  router.post('/api/v1/refresh-token/customer', handleRefreshTokenCustomer);
   app.use('/', router);
 };
 

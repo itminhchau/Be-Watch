@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 //genaral accesstoken
 const generalAcessToken = (data) => {
-  const access_token = jwt.sign(data, process.env.JWT_ACCESS_KEY, { expiresIn: '10h' });
+  const access_token = jwt.sign(data, process.env.JWT_ACCESS_KEY, { expiresIn: '2h' });
   return access_token;
 };
 //genaral accesstoken
@@ -167,6 +167,36 @@ export const getSingleCustomerServices = (id) => {
         data,
         errCode: 0,
         message: 'get single Customer success',
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const refreshTokenCustomerService = (token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      jwt.verify(token, process.env.JWT_REFRESH_TOKEN, (err, user) => {
+        if (err) {
+          resolve({
+            errCode: -1,
+            message: 'User is not authentication ',
+          });
+          return;
+        }
+        if (user) {
+          const newAccessToken = generalAcessToken({ id: user.id });
+          resolve({
+            errCode: 0,
+            message: 'refreshToken  success',
+            access_token: newAccessToken,
+          });
+        } else {
+          resolve({
+            errCode: 1,
+            message: 'User newAccessToken failed ',
+          });
+        }
       });
     } catch (error) {
       reject(error);
