@@ -165,7 +165,7 @@ export const updateQuantityCartServices = (id, mode) => {
             case 'sub':
               await db.Cart.update(
                 {
-                  quantity: ItemCart.quantity - 1,
+                  quantity: ItemCart.quantity <= 1 ? 1 : ItemCart.quantity - 1,
                 },
                 {
                   where: { id: id },
