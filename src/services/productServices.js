@@ -1,4 +1,4 @@
-import db from '../models';
+import db, { Sequelize } from '../models';
 import imageProduct from '../models/imageProduct';
 
 export const createProductService = (data) => {
@@ -242,6 +242,31 @@ export const getProductNewService = () => {
         });
       }
     } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const searchProductServices = (data) => {
+  return new Promise(async (resolve, reject) => {
+    const { limit, keyWord } = data;
+    try {
+      const data = await db.Product.findAll({
+        where: {
+          nameProduct: {
+            [Sequelize.Op.like]: `%${keyWord}%`,
+          },
+        },
+        attributes: ['id', 'nameProduct', 'price'],
+        limit: parseInt(limit) || 10,
+      });
+      resolve({
+        data,
+        errCode: 0,
+        message: 'oke',
+      });
+    } catch (error) {
+      console.log('check loi', error);
       reject(error);
     }
   });

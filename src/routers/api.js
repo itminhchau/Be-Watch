@@ -24,6 +24,7 @@ import {
   handleLoginUser,
   handleRegisterCustomer,
   handleRegisterUser,
+  handleSearchProduct,
   handleUpdateProduct,
   handleUpdateQuantityCart,
   handleUpdateUser,
@@ -89,6 +90,8 @@ const initAPIRouter = (app) => {
   router.delete('/api/v1/delete/cart/:id', handleDeleteCart);
   //router update quantity cart
   router.put('/api/v1/update/quantity/cart', handleUpdateQuantityCart);
+  //router search product
+  router.get('/api/v1/search/product', handleSearchProduct);
 
   app.use('/', router);
 };
