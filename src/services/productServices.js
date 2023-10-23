@@ -78,9 +78,19 @@ export const getSingleProductService = async (id) => {
 };
 export const updateProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { id, price, description, count } = data;
+    const { id, idBrand, nameProduct, price, quantitySold, rate, shortDescription, totalStock, description } = data;
     try {
-      if (!id || !price || !description || !count) {
+      if (
+        !id ||
+        !idBrand ||
+        !nameProduct ||
+        !price ||
+        !quantitySold ||
+        !rate ||
+        !shortDescription ||
+        !totalStock ||
+        !description
+      ) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -93,9 +103,14 @@ export const updateProductService = (data) => {
       if (product) {
         await db.Product.update(
           {
+            idBrand: idBrand,
+            nameProduct: nameProduct,
             price: price,
+            quantitySold: quantitySold,
+            rate: rate,
+            shortDescription: shortDescription,
+            totalStock: totalStock,
             description: description,
-            count: count,
           },
           {
             where: { id: id },
