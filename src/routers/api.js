@@ -3,6 +3,8 @@ import {
   createImageProduct,
   handleCreateCart,
   handleCreateColor,
+  handleCreateDetailOrder,
+  handleCreateOrder,
   handleCreateProduct,
   handleDeleteCart,
   handleDeleteSingleProduct,
@@ -11,8 +13,8 @@ import {
   handleGetAllCart,
   handleGetAllColors,
   handleGetAllCustomer,
-  handleGetAllProducts,
   handleGetAllUser,
+  handleGetDetailOrder,
   handleGetFilterAllProduct,
   handleGetImageProduct,
   handleGetImageProductOfIdProductAndIdColor,
@@ -92,6 +94,12 @@ const initAPIRouter = (app) => {
   router.put('/api/v1/update/quantity/cart', handleUpdateQuantityCart);
   //router search product
   router.get('/api/v1/search/product', handleSearchProduct);
+  //router create order
+  router.post('/api/v1/create/order', handleCreateOrder);
+  //router create detail order
+  router.post('/api/v1/create/detail/order', handleCreateDetailOrder);
+  //router get detail order
+  router.get('/api/v1/get/detail/order', handleGetDetailOrder);
 
   app.use('/', router);
 };

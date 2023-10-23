@@ -3,19 +3,10 @@ import imageProduct from '../models/imageProduct';
 
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { nameProduct, price, shortDescription, description, quantitySold, totalStock, rate, idBrand } = data;
+    const { nameProduct, price, shortDescription, description, quantitySold, rate, idBrand } = data;
 
     try {
-      if (
-        !nameProduct ||
-        !price ||
-        !shortDescription ||
-        !description ||
-        !quantitySold ||
-        !totalStock ||
-        !rate ||
-        !idBrand
-      ) {
+      if (!nameProduct || !price || !shortDescription || !description || !quantitySold || !rate || !idBrand) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -29,7 +20,6 @@ export const createProductService = (data) => {
         shortDescription,
         description,
         quantitySold,
-        totalStock,
         rate,
         idBrand,
       });
@@ -188,11 +178,9 @@ export const getFilterAllProductService = (data) => {
       }
 
       if (newProduct === 'DESC') {
-        console.log('da log');
         order.push([['createdAt', 'DESC']]);
       }
 
-      console.log('check order', order);
       const count = await db.Product.count({});
       const data = await db.Product.findAll({
         offset,
@@ -200,7 +188,7 @@ export const getFilterAllProductService = (data) => {
         where,
         order,
         attributes: {
-          exclude: ['shortDescription', 'description', 'quantitySold'],
+          exclude: ['shortDescription', 'description'],
         },
         include: [{ model: db.ImageProduct, as: 'imageProduct' }],
       });
@@ -251,6 +239,14 @@ export const searchProductServices = (data) => {
   return new Promise(async (resolve, reject) => {
     const { limit, keyWord } = data;
     try {
+      if (!keyWord) {
+        resolve({
+          data: [],
+          errCode: 0,
+          message: 'oke',
+        });
+        return;
+      }
       const data = await db.Product.findAll({
         where: {
           nameProduct: {

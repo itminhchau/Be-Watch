@@ -9,10 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      date: {
-        type: Sequelize.DATE,
-      },
-      Totalprice: {
+      // date: {
+      //   type: Sequelize.DATE,
+      // },
+      totalPrice: {
         type: Sequelize.FLOAT,
       },
       status: {

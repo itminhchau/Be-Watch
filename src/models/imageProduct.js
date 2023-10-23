@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
         // as: 'customer',
       });
       ImageProduct.hasMany(models.Cart);
+      ImageProduct.belongsToMany(models.Order, { through: models.DetailOrder, foreignKey: 'ImageProductId' });
+      ImageProduct.hasMany(models.DetailOrder);
     }
   }
   ImageProduct.init(

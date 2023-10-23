@@ -5,3 +5,5 @@ export * from './brandServices';
 export * from './colorServices';
 export * from './customerServices';
 export * from './cartServices';
+export * from './orderServices';
+export * from './detailOrderServices';

@@ -9,13 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      idOrder: {
+      OrderId: {
         type: Sequelize.INTEGER,
       },
-      idProduct: {
+      ImageProductId: {
         type: Sequelize.INTEGER,
       },
-      count: {
+      quantity: {
         type: Sequelize.INTEGER,
       },
       unitPrice: {

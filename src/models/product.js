@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product.belongsTo(models.Brand, { foreignKey: 'idBrand', as: 'brand' });
       Product.hasMany(models.Review, { foreignKey: 'idProduct', as: 'review' });
-      Product.belongsToMany(models.Order, { through: models.DetailOrder });
+
       // Product.belongsToMany(models.Customer, { through: models.Cart });
       Product.hasMany(models.ImageProduct, { foreignKey: 'idProduct', as: 'imageProduct' });
     }
@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       shortDescription: DataTypes.TEXT('long'),
       description: DataTypes.TEXT('long'),
       quantitySold: DataTypes.INTEGER,
-      totalStock: DataTypes.INTEGER,
       rate: DataTypes.FLOAT,
       idBrand: DataTypes.INTEGER,
     },
