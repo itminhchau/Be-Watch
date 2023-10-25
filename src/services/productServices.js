@@ -78,19 +78,9 @@ export const getSingleProductService = async (id) => {
 };
 export const updateProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { id, idBrand, nameProduct, price, quantitySold, rate, shortDescription, totalStock, description } = data;
+    const { id, idBrand, nameProduct, price, quantitySold, rate } = data;
     try {
-      if (
-        !id ||
-        !idBrand ||
-        !nameProduct ||
-        !price ||
-        !quantitySold ||
-        !rate ||
-        !shortDescription ||
-        !totalStock ||
-        !description
-      ) {
+      if (!id || !idBrand || !nameProduct || !price || !quantitySold || !rate) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -108,9 +98,6 @@ export const updateProductService = (data) => {
             price: price,
             quantitySold: quantitySold,
             rate: rate,
-            shortDescription: shortDescription,
-            totalStock: totalStock,
-            description: description,
           },
           {
             where: { id: id },
@@ -142,13 +129,9 @@ export const deleteProductService = (productId) => {
       }
       const product = await db.Product.findOne({
         where: { id: productId },
-        raw: true,
       });
-
       if (product) {
-        await db.Product.destroy({
-          where: { id: productId },
-        });
+        await product.destroy();
         resolve({
           errCode: 0,
           errMessage: `The Product is deleted successfully`,
@@ -160,6 +143,7 @@ export const deleteProductService = (productId) => {
         });
       }
     } catch (error) {
+      console.log('error :', error);
       reject(error);
     }
   });
@@ -169,6 +153,7 @@ export const getFilterAllProductService = (data) => {
   return new Promise(async (resolve, reject) => {
     const { idBrand, modePrice, page, limit, newProduct } = data;
     console.log('new', newProduct);
+
     try {
       if (!page || !limit) {
         resolve({

@@ -203,3 +203,45 @@ export const refreshTokenCustomerService = (token) => {
     }
   });
 };
+export const updateCustomerService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    const { id, firstName, lastName, shipAddress, phoneNumber, gender } = data;
+    try {
+      if (!id || !firstName || !lastName || !shipAddress || !phoneNumber || !gender) {
+        resolve({
+          errCode: 1,
+          message: `missing parameter `,
+        });
+      }
+      const user = await db.Customer.findOne({
+        where: { id: id },
+        raw: true,
+      });
+      if (user) {
+        await db.Customer.update(
+          {
+            firstName: firstName,
+            lastName: lastName,
+            shipAddress: shipAddress,
+            phoneNumber: phoneNumber,
+            gender: gender,
+          },
+          {
+            where: { id: id },
+          }
+        );
+        resolve({
+          errCode: 0,
+          message: 'update customer success',
+        });
+      } else {
+        resolve({
+          errCode: 2,
+          message: 'customer not found',
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

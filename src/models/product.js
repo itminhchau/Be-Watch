@@ -13,7 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Review, { foreignKey: 'idProduct', as: 'review' });
 
       // Product.belongsToMany(models.Customer, { through: models.Cart });
-      Product.hasMany(models.ImageProduct, { foreignKey: 'idProduct', as: 'imageProduct' });
+      Product.hasMany(models.ImageProduct, {
+        foreignKey: 'idProduct',
+        as: 'imageProduct',
+        onDelete: 'CASCADE',
+        hooks: true,
+      });
     }
   }
   Product.init(

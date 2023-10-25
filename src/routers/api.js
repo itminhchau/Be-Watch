@@ -31,6 +31,7 @@ import {
   handleUpdateUser,
   handleGetProductNew,
   handleRefreshTokenCustomer,
+  handleUpdateCustomer,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
 
@@ -82,6 +83,8 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/getall/customer', handleGetAllCustomer);
   //get single customer
   router.get('/api/v1/get-single/customer', handleGetSingleCustomer);
+  //update single customer
+  router.put('/api/v1/update/customer', handleUpdateCustomer);
   // add  to card
   router.post('/api/v1/create/cart', middlewareController.verifyToken, handleCreateCart);
 
