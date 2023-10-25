@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 //genaral accesstoken
 const generalAcessToken = (data) => {
-  const access_token = jwt.sign(data, process.env.JWT_ACCESS_KEY, { expiresIn: '10h' });
+  const access_token = jwt.sign(data, process.env.JWT_ACCESS_KEY, { expiresIn: '90s' });
   return access_token;
 };
 //genaral accesstoken
@@ -39,7 +39,7 @@ export const registerCustomerServices = (data) => {
       if (emailExists) {
         resolve({
           errCode: 1,
-          message: 'Email already exists',
+          message: 'Email đã tồn tại',
         });
         return;
       }
@@ -80,7 +80,7 @@ export const loginCustomerServices = (email, password) => {
       if (!customer) {
         resolve({
           errCode: 1,
-          message: 'Email is incorrect or does not exist',
+          message: 'Email không chính xác hoặc không tồn tại',
         });
         return;
       }
@@ -89,7 +89,7 @@ export const loginCustomerServices = (email, password) => {
       if (!checkPassword) {
         resolve({
           errCode: 1,
-          message: 'Password is incorrect ',
+          message: 'Mật khẩu không đúng ',
         });
         return;
       }
@@ -168,6 +168,78 @@ export const getSingleCustomerServices = (id) => {
         errCode: 0,
         message: 'get single Customer success',
       });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const refreshTokenCustomerService = (token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      jwt.verify(token, process.env.JWT_REFRESH_TOKEN, (err, user) => {
+        if (err) {
+          resolve({
+            errCode: -1,
+            message: 'User is not authentication ',
+          });
+          return;
+        }
+        if (user) {
+          const newAccessToken = generalAcessToken({ id: user.id });
+          resolve({
+            errCode: 0,
+            message: 'refreshToken  success',
+            access_token: newAccessToken,
+          });
+        } else {
+          resolve({
+            errCode: 1,
+            message: 'User newAccessToken failed ',
+          });
+        }
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const updateCustomerService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    const { id, firstName, lastName, shipAddress, phoneNumber, gender } = data;
+    try {
+      if (!id || !firstName || !lastName || !shipAddress || !phoneNumber || !gender) {
+        resolve({
+          errCode: 1,
+          message: `missing parameter `,
+        });
+      }
+      const user = await db.Customer.findOne({
+        where: { id: id },
+        raw: true,
+      });
+      if (user) {
+        await db.Customer.update(
+          {
+            firstName: firstName,
+            lastName: lastName,
+            shipAddress: shipAddress,
+            phoneNumber: phoneNumber,
+            gender: gender,
+          },
+          {
+            where: { id: id },
+          }
+        );
+        resolve({
+          errCode: 0,
+          message: 'update customer success',
+        });
+      } else {
+        resolve({
+          errCode: 2,
+          message: 'customer not found',
+        });
+      }
     } catch (error) {
       reject(error);
     }
