@@ -3,10 +3,19 @@ import imageProduct from '../models/imageProduct';
 
 export const createProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { nameProduct, price, shortDescription, description, quantitySold, rate, idBrand } = data;
+    const { nameProduct, price, shortDescription, description, quantitySold, rate, idBrand, idPromotion } = data;
 
     try {
-      if (!nameProduct || !price || !shortDescription || !description || !quantitySold || !rate || !idBrand) {
+      if (
+        !nameProduct ||
+        !price ||
+        !shortDescription ||
+        !description ||
+        !quantitySold ||
+        !rate ||
+        !idBrand ||
+        !idPromotion
+      ) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -21,6 +30,7 @@ export const createProductService = (data) => {
         description,
         quantitySold,
         rate,
+        idPromotion,
         idBrand,
       });
       resolve({
@@ -45,7 +55,11 @@ export const getSingleProductService = async (id) => {
       }
       const data = await db.Product.findAll({
         where: { id: id },
-        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
+        include: [
+          { model: db.ImageProduct, as: 'imageProduct' },
+          { model: db.Promotion, as: 'promotion' },
+        ],
+
         raw: true,
         nest: true,
       });
@@ -63,6 +77,7 @@ export const getSingleProductService = async (id) => {
           price: data[0].price,
           shortDescription: data[0].shortDescription,
           description: data[0].description,
+          discount_percent: data[0].promotion.valuePromotion,
           imageProduct: data.map((item) => item.imageProduct),
         };
         resolve({
@@ -190,7 +205,10 @@ export const getFilterAllProductService = (data) => {
         attributes: {
           exclude: ['shortDescription', 'description'],
         },
-        include: [{ model: db.ImageProduct, as: 'imageProduct' }],
+        include: [
+          { model: db.ImageProduct, as: 'imageProduct' },
+          { model: db.Promotion, as: 'promotion' },
+        ],
       });
       resolve({
         data,

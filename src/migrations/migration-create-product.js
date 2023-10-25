@@ -27,6 +27,9 @@ module.exports = {
       rate: {
         type: Sequelize.FLOAT,
       },
+      idPromotion: {
+        type: Sequelize.INTEGER,
+      },
       idBrand: {
         type: Sequelize.INTEGER,
       },

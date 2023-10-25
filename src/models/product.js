@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Product.belongsTo(models.Brand, { foreignKey: 'idBrand', as: 'brand' });
+      Product.belongsTo(models.Promotion, { foreignKey: 'idPromotion', as: 'promotion' });
       Product.hasMany(models.Review, { foreignKey: 'idProduct', as: 'review' });
 
       // Product.belongsToMany(models.Customer, { through: models.Cart });
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.TEXT('long'),
       quantitySold: DataTypes.INTEGER,
       rate: DataTypes.FLOAT,
+      idPromotion: DataTypes.INTEGER,
       idBrand: DataTypes.INTEGER,
     },
     {
