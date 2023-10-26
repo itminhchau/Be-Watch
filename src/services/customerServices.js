@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 //genaral accesstoken
 const generalAcessToken = (data) => {
-  const access_token = jwt.sign(data, process.env.JWT_ACCESS_KEY, { expiresIn: '90s' });
+  const access_token = jwt.sign(data, process.env.JWT_ACCESS_KEY, { expiresIn: '10h' });
   return access_token;
 };
 //genaral accesstoken
