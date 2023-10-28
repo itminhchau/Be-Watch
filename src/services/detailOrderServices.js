@@ -99,22 +99,41 @@ export const getDetailOrderServices = (idCustomer) => {
         include: [
           {
             model: db.DetailOrder,
-            attributes: ['id', 'OrderId', 'ImageProductId', 'quantity', 'unitPrice', 'createdAt'],
+            attributes: ['id', 'OrderId', 'quantity', 'unitPrice'],
             include: [
               {
                 model: db.ImageProduct,
+                attributes: {
+                  exclude: ['stock', 'createdAt', 'updatedAt'],
+                },
                 include: [
                   {
                     model: db.Product,
                     as: 'imageProduct',
                     attributes: {
-                      exclude: ['shortDescription', 'description', 'quantitySold', 'totalStock', 'rate', 'idBrand'],
+                      exclude: [
+                        'shortDescription',
+                        'description',
+                        'quantitySold',
+                        'totalStock',
+                        'rate',
+                        'idBrand',
+                        'createdAt',
+                        'updatedAt',
+                      ],
                     },
                   },
                 ],
               },
             ],
             // attributes: ['product_id', 'other_columns'], // Lấy các cột của bảng ImageProduct bạn muốn
+          },
+          {
+            model: db.Customer,
+            as: 'orders',
+            attributes: {
+              exclude: ['password'],
+            },
           },
         ],
       });

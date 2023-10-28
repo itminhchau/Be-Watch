@@ -42,7 +42,7 @@ export const handleGetAllCustomer = async (req, res) => {
 };
 export const handleGetSingleCustomer = async (req, res) => {
   try {
-    const data = await getSingleCustomerServices(req.body.id);
+    const data = await getSingleCustomerServices(req.query.id);
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({
