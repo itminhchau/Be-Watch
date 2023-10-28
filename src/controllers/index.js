@@ -7,3 +7,5 @@ export * from './customerControllers';
 export * from './cartController';
 export * from './orderControllers';
 export * from './detailOrderController';
+export * from './productControllers';
+export * from './promotionControllers';

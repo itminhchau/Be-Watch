@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       description: DataTypes.STRING,
       valuePromotion: DataTypes.STRING,
-      expDate: DataTypes.DATE,
+      expDate: DataTypes.INTEGER,
     },
     {
       sequelize,
