@@ -2,9 +2,9 @@ import db from '../models';
 
 export const createDetailOrdertServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { idOrder, idImageProduct, quantity, price } = data;
+    const { idOrder, idImageProduct, quantity, price, idCart } = data;
     try {
-      if (!idOrder || !idImageProduct || !quantity || !price) {
+      if (!idOrder || !idImageProduct || !quantity || !price || !idCart) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
@@ -41,16 +41,28 @@ export const createDetailOrdertServices = (data) => {
             id: itemProduct.idProduct,
           },
         });
-        await db.Product.update(
-          {
-            quantitySold: product.quantitySold + parseInt(quantity),
-          },
-          {
-            where: {
-              id: itemProduct.idProduct,
+        if (product) {
+          await db.Product.update(
+            {
+              quantitySold: product.quantitySold + parseInt(quantity),
             },
-          }
-        );
+            {
+              where: {
+                id: itemProduct.idProduct,
+              },
+            }
+          );
+        }
+
+        const cart = await db.Cart.findOne({
+          where: { id: idCart },
+        });
+
+        if (cart) {
+          await cart.destroy({
+            where: { id: idCart },
+          });
+        }
 
         resolve({
           errCode: 0,

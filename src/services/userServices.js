@@ -25,19 +25,20 @@ const hashUserPassword = (password) => {
 };
 export const registerUserServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { firstName, lastName, roleId, email, password, phoneNumber, address, gender } = data;
+    console.log('check data', data);
+    const { firstName, lastName, roleId, userName, password, phoneNumber, address, gender } = data;
     try {
-      if (!firstName || !lastName || !roleId || !email || !password || !phoneNumber || !address || !gender) {
+      if (!firstName || !lastName || !roleId || !userName || !password || !phoneNumber || !address || !gender) {
         resolve({
           errCode: 1,
           message: `missing parameter `,
         });
         return;
       }
-      let emailExists = await db.User.findOne({
-        where: { email: email },
+      let userNameExists = await db.User.findOne({
+        where: { userName: userName },
       });
-      if (emailExists) {
+      if (userNameExists) {
         resolve({
           errCode: 1,
           message: 'Email already exists',
@@ -50,7 +51,7 @@ export const registerUserServices = (data) => {
         firstName,
         lastName,
         roleId,
-        email,
+        userName,
         password: hashPasswordFormBcrypt,
         phoneNumber,
         address,
@@ -65,10 +66,10 @@ export const registerUserServices = (data) => {
     }
   });
 };
-export const loginUserServices = (email, password) => {
+export const loginUserServices = (userName, password) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!email || !password) {
+      if (!userName || !password) {
         resolve({
           errCode: 1,
           message: `missing parameter `,
@@ -76,7 +77,7 @@ export const loginUserServices = (email, password) => {
         return;
       }
       const user = await db.User.findOne({
-        where: { email: email },
+        where: { userName: userName },
 
         raw: true,
       });

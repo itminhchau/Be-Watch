@@ -20,7 +20,7 @@ export const handleRegisterCustomer = async (req, res) => {
 };
 export const handleLoginCustomer = async (req, res) => {
   try {
-    const data = await loginCustomerServices(req.body.email, req.body.password);
+    const data = await loginCustomerServices(req.body);
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({

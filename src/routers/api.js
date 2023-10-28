@@ -99,7 +99,7 @@ const initAPIRouter = (app) => {
   //router create order
   router.post('/api/v1/create/order', handleCreateOrder);
   //router create detail order
-  router.post('/api/v1/create/detail/order', handleCreateDetailOrder);
+  router.post('/api/v1/create/order/detail', handleCreateDetailOrder);
   //router get detail order
   router.get('/api/v1/get/detail/order', handleGetDetailOrder);
 

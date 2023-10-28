@@ -24,19 +24,19 @@ const hashUserPassword = (password) => {
 };
 export const registerCustomerServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { firstName, lastName, email, password, shipAddress, phoneNumber, gender } = data;
+    const { firstName, lastName, userName, password, shipAddress, phoneNumber, gender } = data;
     try {
-      if (!firstName || !lastName || !email || !password || !shipAddress || !phoneNumber || !gender) {
+      if (!firstName || !lastName || !userName || !password || !shipAddress || !phoneNumber || !gender) {
         resolve({
           errCode: 1,
           message: `missing parameter `,
         });
         return;
       }
-      let emailExists = await db.Customer.findOne({
-        where: { email: email },
+      let userNameExists = await db.Customer.findOne({
+        where: { userName: userName },
       });
-      if (emailExists) {
+      if (userNameExists) {
         resolve({
           errCode: 1,
           message: 'Email đã tồn tại',
@@ -48,7 +48,7 @@ export const registerCustomerServices = (data) => {
       await db.Customer.create({
         firstName,
         lastName,
-        email,
+        userName,
         password: hashPasswordFormBcrypt,
         shipAddress,
         phoneNumber,
@@ -63,10 +63,11 @@ export const registerCustomerServices = (data) => {
     }
   });
 };
-export const loginCustomerServices = (email, password) => {
+export const loginCustomerServices = (data) => {
   return new Promise(async (resolve, reject) => {
+    const { userName, password } = data;
     try {
-      if (!email || !password) {
+      if (!userName || !password) {
         resolve({
           errCode: 1,
           message: `missing parameter `,
@@ -74,7 +75,7 @@ export const loginCustomerServices = (email, password) => {
         return;
       }
       const customer = await db.Customer.findOne({
-        where: { email: email },
+        where: { userName: userName },
         raw: true,
       });
       if (!customer) {
