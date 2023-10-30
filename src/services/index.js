@@ -7,3 +7,5 @@ export * from './customerServices';
 export * from './cartServices';
 export * from './orderServices';
 export * from './detailOrderServices';
+export * from './productServices';
+export * from './promotionServices';

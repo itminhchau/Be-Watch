@@ -32,6 +32,9 @@ import {
   handleGetProductNew,
   handleRefreshTokenCustomer,
   handleUpdateCustomer,
+  handleCreatePromotion,
+  handleUpdatePromotion,
+  handleGetAllPromotions,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
 
@@ -107,6 +110,12 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get-new/product', handleGetProductNew);
   //refresherToken customer
   router.post('/api/v1/refresh-token/customer', handleRefreshTokenCustomer);
+  //create promotin
+  router.post('/api/v1/create/promotion', handleCreatePromotion);
+  //router update promotion
+  router.put('/api/v1/update/promotion', handleUpdatePromotion);
+  //get all promotion
+  router.get('/api/v1/getall/promotion', handleGetAllPromotions);
   app.use('/', router);
 };
 
