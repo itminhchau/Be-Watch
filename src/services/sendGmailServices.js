@@ -73,20 +73,27 @@ const sendSimpleEmail = async (data) => {
   htmlContentOwner += `<h4>Tiền vận chuyển : ${formatPrice(fee)}</h4>`;
   htmlContentOwner += `<h3>Tổng hoá đơn : ${formatPrice(newTotalPrice)}</h3>`;
 
-  const customer = await transporter.sendMail({
-    from: '"Watchsc 👻" <mywatchsc@gmail.com>', // sender address
-    to: email, // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world?', // plain text body
-    html: htmlContent, // html body
-  });
-  const owner = await transporter.sendMail({
-    from: '"Watchsc 👻" <mywatchsc@gmail.com>', // sender address
-    to: 'mywatchsc@gmail.com', // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world?', // plain text body
-    html: htmlContentOwner, // html body
-  });
+  try {
+    const customer = await transporter.sendMail({
+      from: '"Watchsc 👻" <mywatchsc@gmail.com>', // sender address
+      to: email, // list of receivers
+      subject: 'Hello ✔', // Subject line
+      text: 'Hello world?', // plain text body
+      html: htmlContent, // html body
+    });
+    const owner = await transporter.sendMail({
+      from: '"Watchsc 👻" <mywatchsc@gmail.com>', // sender address
+      to: 'mywatchsc@gmail.com', // list of receivers
+      subject: 'Hello ✔', // Subject line
+      text: 'Hello world?', // plain text body
+      html: htmlContentOwner, // html body
+    });
+
+    return { errcode: 0, message: 'Email sent successfully.' };
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return { errcode: 1, message: 'Error sending email.' };
+  }
 };
 
 export default sendSimpleEmail;

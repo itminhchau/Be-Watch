@@ -22,18 +22,34 @@ export const createOrdertServices = (data) => {
         return;
       }
       const newTotalPrice = parseFloat(totalPrice);
-      await sendSimpleEmail({ email, arrayItemCart, newTotalPrice, fee, inforCustomer, itemOrderMethodStatus });
-      const data = await db.Order.create({
-        idCustomer: parseInt(idCustomer),
-        totalPrice: newTotalPrice,
-        status,
+      const res = await sendSimpleEmail({
+        email,
+        arrayItemCart,
+        newTotalPrice,
+        fee,
+        inforCustomer,
+        itemOrderMethodStatus,
       });
+      console.log('check res email', res);
 
-      resolve({
-        data,
-        errCode: 0,
-        message: 'create Order success',
-      });
+      if (res.errcode === 0) {
+        const data = await db.Order.create({
+          idCustomer: parseInt(idCustomer),
+          totalPrice: newTotalPrice,
+          status,
+        });
+
+        resolve({
+          data,
+          errCode: 0,
+          message: 'create Order success',
+        });
+      } else {
+        resolve({
+          errCode: 2,
+          message: 'gmail khong ton tai',
+        });
+      }
     } catch (error) {
       reject(error);
       console.log('check loi', error);
