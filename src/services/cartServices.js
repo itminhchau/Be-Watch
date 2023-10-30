@@ -63,12 +63,41 @@ export const getAllCartServices = (idCustomer) => {
         include: [
           {
             model: db.ImageProduct,
+            attributes: {
+              exclude: ['createdAt', 'updatedAt'],
+            },
             include: [
               {
                 model: db.Product,
                 as: 'imageProduct',
                 attributes: {
-                  exclude: ['shortDescription', 'description', 'quantitySold', 'totalStock', 'rate', 'idBrand'],
+                  exclude: [
+                    'shortDescription',
+                    'description',
+                    'quantitySold',
+                    'totalStock',
+                    'rate',
+                    'idBrand',
+                    'createdAt',
+                    'updatedAt',
+                  ],
+                },
+
+                include: [
+                  {
+                    model: db.Promotion,
+                    as: 'promotion',
+                    attributes: {
+                      exclude: ['createdAt', 'updatedAt'],
+                    },
+                  },
+                ],
+              },
+              {
+                model: db.Color,
+                as: 'colorProduct',
+                attributes: {
+                  exclude: ['createdAt', 'updatedAt'],
                 },
               },
             ],

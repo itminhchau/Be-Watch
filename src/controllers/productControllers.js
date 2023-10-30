@@ -68,7 +68,6 @@ export const handleGetSingleProduct = async (req, res) => {
 
 export const handleGetFilterAllProduct = async (req, res) => {
   try {
-    console.log('req', req.query);
     const data = await getFilterAllProductService(req.query);
     return res.status(200).json(data);
   } catch (error) {

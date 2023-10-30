@@ -25,7 +25,6 @@ const hashUserPassword = (password) => {
 };
 export const registerUserServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    console.log('check data', data);
     const { firstName, lastName, roleId, userName, password, phoneNumber, address, gender } = data;
     try {
       if (!firstName || !lastName || !roleId || !userName || !password || !phoneNumber || !address || !gender) {

@@ -167,7 +167,6 @@ export const deleteProductService = (productId) => {
 export const getFilterAllProductService = (data) => {
   return new Promise(async (resolve, reject) => {
     const { idBrand, modePrice, page, limit, newProduct } = data;
-    console.log('new', newProduct);
 
     try {
       if (!page || !limit) {
@@ -203,11 +202,23 @@ export const getFilterAllProductService = (data) => {
         where,
         order,
         attributes: {
-          exclude: ['shortDescription', 'description'],
+          exclude: ['shortDescription', 'description', 'updatedAt', 'createdAt'],
         },
         include: [
-          { model: db.ImageProduct, as: 'imageProduct' },
-          { model: db.Promotion, as: 'promotion' },
+          {
+            model: db.ImageProduct,
+            as: 'imageProduct',
+            attributes: {
+              exclude: ['createdAt', 'updatedAt'],
+            },
+          },
+          {
+            model: db.Promotion,
+            as: 'promotion',
+            attributes: {
+              exclude: ['createdAt', 'updatedAt'],
+            },
+          },
         ],
       });
       resolve({

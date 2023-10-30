@@ -18,7 +18,6 @@ const middlewareController = {
             message: 'Token is not valid',
           });
         } else {
-          console.log('user ', user);
           req.user = user;
           next();
         }
