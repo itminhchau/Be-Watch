@@ -93,13 +93,14 @@ export const getSingleProductService = async (id) => {
 };
 export const updateProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { id, idBrand, nameProduct, price, quantitySold, rate } = data;
+    const { id, idBrand, idPromotion, nameProduct, price, quantitySold, rate } = data;
     try {
-      if (!id || !idBrand || !nameProduct || !price || !quantitySold || !rate) {
+      if (!id || !idBrand || !idPromotion || !nameProduct || !price || !quantitySold || !rate) {
         resolve({
           errCode: 1,
-          message: 'missing parameter',
+          message: `missing parameter  `,
         });
+        return;
       }
       const product = await db.Product.findOne({
         where: { id: id },
@@ -109,6 +110,7 @@ export const updateProductService = (data) => {
         await db.Product.update(
           {
             idBrand: idBrand,
+            idPromotion: idPromotion,
             nameProduct: nameProduct,
             price: price,
             quantitySold: quantitySold,

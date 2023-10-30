@@ -65,3 +65,20 @@ export const updatePromotionService = (data) => {
     }
   });
 };
+export const getAllPromotionService = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await db.Promotion.findAll({
+        raw: true,
+        nest: true,
+      });
+      resolve({
+        data,
+        errCode: 0,
+        message: 'get all Promotion success',
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

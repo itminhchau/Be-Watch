@@ -13,10 +13,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       valuePromotion: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       expDate: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
