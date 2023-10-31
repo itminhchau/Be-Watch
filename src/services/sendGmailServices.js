@@ -77,14 +77,14 @@ const sendSimpleEmail = async (data) => {
     const customer = await transporter.sendMail({
       from: '"Watchsc 👻" <mywatchsc@gmail.com>', // sender address
       to: email, // list of receivers
-      subject: 'Hello ✔', // Subject line
+      subject: 'Thông tin đơn hàng ✔', // Subject line
       text: 'Hello world?', // plain text body
       html: htmlContent, // html body
     });
     const owner = await transporter.sendMail({
       from: '"Watchsc 👻" <mywatchsc@gmail.com>', // sender address
       to: 'mywatchsc@gmail.com', // list of receivers
-      subject: 'Hello ✔', // Subject line
+      subject: 'Thông tin đơn hàng ✔', // Subject line
       text: 'Hello world?', // plain text body
       html: htmlContentOwner, // html body
     });

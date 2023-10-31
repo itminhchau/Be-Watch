@@ -34,6 +34,7 @@ export const updatePromotionService = (data) => {
           errCode: 1,
           message: 'missing parameter',
         });
+        return;
       }
       const promotion = await db.Promotion.findOne({
         where: { id: id },
