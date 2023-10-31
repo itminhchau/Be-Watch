@@ -9,3 +9,4 @@ export * from './orderControllers';
 export * from './detailOrderController';
 export * from './productControllers';
 export * from './promotionControllers';
+export * from './contactControllers';
