@@ -29,7 +29,7 @@ export const updatePromotionService = (data) => {
   return new Promise(async (resolve, reject) => {
     const { id, description, valuePromotion, expDate } = data;
     try {
-      if (!id || !description || !valuePromotion || !expDate) {
+      if (!id || !description || !expDate) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
