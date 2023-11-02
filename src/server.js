@@ -7,7 +7,7 @@ import initAPIRouter from './routers/api';
 import task from './controllers/schedulePromotions';
 dotenv.config();
 
-// task.start();
+task.start();
 const app = express();
 app.use(cors({ credentials: true, origin: true }));
 const port = process.env.PORT || 6969;

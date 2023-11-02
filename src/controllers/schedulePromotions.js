@@ -1,13 +1,36 @@
-// var cron = require('node-cron');
+import db from '../models';
+var cron = require('node-cron');
+const Sequelize = require('sequelize');
+async function updateProducts() {
+  try {
+    const currentDate = Date.parse(new Date()) / 1000;
+    console.log(currentDate);
+    //  Tìm các khuyến mãi đã hết hạn
+    const expiredPromotions = await db.Promotion.findAll({
+      where: {
+        expDate: { [Sequelize.Op.lt]: currentDate },
+      },
+    });
 
-// var task = cron.schedule(
-//   '1,2,4,5 * * * *',
-//   () => {
-//     console.log('running every minute 1, 2, 4 and 5');
-//   }
-//   // {
-//   //   scheduled: false,
-//   // }
-// );
+    console.log('tim', expiredPromotions);
+    // Cập nhật các sản phẩm có idPromotion chứa khuyến mãi hết hạn về idPromotion = 0
+    for (const promotion of expiredPromotions) {
+      await db.Product.update(
+        { idPromotion: 0 },
+        {
+          where: { idPromotion: promotion.id },
+        }
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-// export default task;
+// Lên lịch chạy công việc mỗi giờ
+var task = cron.schedule('0 0 * * *', () => {
+  console.log('Chạy cập nhật sản phẩm');
+  updateProducts();
+});
+
+export default task;
