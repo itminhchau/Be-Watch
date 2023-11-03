@@ -204,7 +204,7 @@ export const getFilterAllProductService = (data) => {
         where,
         order,
         attributes: {
-          exclude: ['shortDescription', 'description', 'updatedAt', 'createdAt'],
+          exclude: ['shortDescription', 'description', 'updatedAt'],
         },
         include: [
           {
