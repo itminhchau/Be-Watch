@@ -1,4 +1,9 @@
-import { createPromotionService, getAllPromotionService, updatePromotionService } from '../services';
+import {
+  createPromotionService,
+  getAllPromotionService,
+  getBiggestProductPromotionService,
+  updatePromotionService,
+} from '../services';
 
 export const handleCreatePromotion = async (req, res) => {
   try {
@@ -25,6 +30,17 @@ export const handleUpdatePromotion = async (req, res) => {
 export const handleGetAllPromotions = async (req, res) => {
   try {
     const data = await getAllPromotionService();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: 'err form server ...',
+    });
+  }
+};
+export const handleGetBiggestProductPromotion = async (req, res) => {
+  try {
+    const data = await getBiggestProductPromotionService();
     return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({

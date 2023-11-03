@@ -36,6 +36,7 @@ import {
   handleUpdatePromotion,
   handleGetAllPromotions,
   handleCreateContact,
+  handleGetBiggestProductPromotion,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
 
@@ -119,6 +120,8 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/getall/promotion', handleGetAllPromotions);
   //create contact sendEmail
   router.post('/api/v1/create/contact', handleCreateContact);
+  //BiggestProductPromotion
+  router.get('/api/v1/product/promotion-biggest', handleGetBiggestProductPromotion);
 
   app.use('/', router);
 };

@@ -83,3 +83,45 @@ export const getAllPromotionService = () => {
     }
   });
 };
+
+// lấy hạn ngày sản phẩm có khuyến mãi lớn nhất.
+export const getBiggestProductPromotionService = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const maxPromotion = await db.Promotion.max('valuePromotion');
+      const promotion = await db.Promotion.findOne({
+        where: {
+          valuePromotion: maxPromotion,
+        },
+      });
+
+      if (promotion) {
+        const product = await db.Product.findOne({
+          where: { idPromotion: promotion.id },
+          attributes: {
+            exclude: [
+              'shortDescription',
+              'description',
+              'updatedAt',
+              'createdAt',
+              'quantitySold',
+              'rate',
+              'idPromotion',
+              'idBrand',
+            ],
+          },
+          raw: true,
+        });
+
+        resolve({
+          ...product,
+          promotion: promotion.valuePromotion,
+          expDate: promotion.expDate,
+        });
+      }
+    } catch (error) {
+      console.log('check error', error);
+      reject(error);
+    }
+  });
+};
