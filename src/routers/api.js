@@ -37,6 +37,9 @@ import {
   handleGetAllPromotions,
   handleCreateContact,
   handleGetBiggestProductPromotion,
+  handleCreateReview,
+  handleGetReviewProduct,
+  handleGetAvgStar,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
 
@@ -122,6 +125,12 @@ const initAPIRouter = (app) => {
   router.post('/api/v1/create/contact', handleCreateContact);
   //BiggestProductPromotion
   router.get('/api/v1/product/promotion-biggest', handleGetBiggestProductPromotion);
+  //create review
+  router.post('/api/v1/create/review', handleCreateReview);
+  //router get review product
+  router.get('/api/v1/get-review-product/review', handleGetReviewProduct);
+  //router get avg star
+  router.get('/api/v1/get-avg-star/review', handleGetAvgStar);
 
   app.use('/', router);
 };

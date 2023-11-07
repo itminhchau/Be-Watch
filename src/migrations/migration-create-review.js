@@ -18,6 +18,13 @@ module.exports = {
       star: {
         type: Sequelize.INTEGER,
       },
+      userName: {
+        type: Sequelize.STRING,
+      },
+      phoneNumber: {
+        type: Sequelize.INTEGER,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
