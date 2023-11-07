@@ -112,7 +112,6 @@ export const getBiggestProductPromotionService = () => {
           },
           raw: true,
         });
-
         resolve({
           ...product,
           promotion: promotion.valuePromotion,

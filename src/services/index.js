@@ -10,3 +10,4 @@ export * from './detailOrderServices';
 export * from './productServices';
 export * from './promotionServices';
 export * from './contactServices';
+export * from './reviewServices';
