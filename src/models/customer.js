@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Customer.hasMany(models.Order, { foreignKey: 'idCustomer', as: 'orders' });
+      Customer.hasMany(models.Question, { foreignKey: 'idCustomer', as: 'questionCt' });
+      Customer.hasMany(models.Answer, { foreignKey: 'idCustomer', as: 'answerCt' });
+
       Customer.belongsToMany(models.ImageProduct, {
         through: models.Cart,
         foreignKey: 'CustomerId',
@@ -24,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       lastName: DataTypes.STRING,
       userName: DataTypes.STRING,
       password: DataTypes.STRING,
+      role: DataTypes.STRING,
       shipAddress: DataTypes.STRING,
       phoneNumber: DataTypes.STRING,
       gender: DataTypes.STRING,

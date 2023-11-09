@@ -24,9 +24,9 @@ const hashUserPassword = (password) => {
 };
 export const registerCustomerServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { firstName, lastName, userName, password, shipAddress, phoneNumber, gender } = data;
+    const { firstName, lastName, userName, password, shipAddress, phoneNumber, gender, role } = data;
     try {
-      if (!firstName || !lastName || !userName || !password || !shipAddress || !phoneNumber || !gender) {
+      if (!firstName || !lastName || !userName || !password || !shipAddress || !phoneNumber || !gender || !role) {
         resolve({
           errCode: 1,
           message: `missing parameter `,
@@ -50,6 +50,7 @@ export const registerCustomerServices = (data) => {
         lastName,
         userName,
         password: hashPasswordFormBcrypt,
+        role,
         shipAddress,
         phoneNumber,
         gender,

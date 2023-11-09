@@ -40,6 +40,9 @@ import {
   handleCreateReview,
   handleGetReviewProduct,
   handleGetAvgStar,
+  handleCreateQuestion,
+  handleCreateAnswer,
+  handleGetQuestion,
 } from '../controllers';
 import middlewareController from '../controllers/middlewareController';
 
@@ -131,6 +134,12 @@ const initAPIRouter = (app) => {
   router.get('/api/v1/get-review-product/review', handleGetReviewProduct);
   //router get avg star
   router.get('/api/v1/get-avg-star/review', handleGetAvgStar);
+  //router create question
+  router.post('/api/v1/create/question', handleCreateQuestion);
+  //router create answer
+  router.post('/api/v1/create/answer', handleCreateAnswer);
+  //router get question
+  router.get('/api/v1/get-question', handleGetQuestion);
 
   app.use('/', router);
 };

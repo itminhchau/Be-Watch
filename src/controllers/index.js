@@ -11,3 +11,5 @@ export * from './productControllers';
 export * from './promotionControllers';
 export * from './contactControllers';
 export * from './reviewControllers';
+export * from './questionControllers';
+export * from './answerControllers';

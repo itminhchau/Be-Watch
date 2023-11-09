@@ -11,3 +11,5 @@ export * from './productServices';
 export * from './promotionServices';
 export * from './contactServices';
 export * from './reviewServices';
+export * from './questionServices';
+export * from './answerServices';
