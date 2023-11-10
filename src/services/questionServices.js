@@ -1,8 +1,9 @@
 import db from '../models';
+import sendEmailQuestion from './sendGmailQuestionServices';
 
 export const createQuestionServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { idCustomer, idProduct, content } = data;
+    const { idCustomer, idProduct, content, userName, link } = data;
     try {
       if (!idCustomer || !idProduct || !content) {
         resolve({
@@ -11,6 +12,7 @@ export const createQuestionServices = (data) => {
         });
         return;
       }
+      await sendEmailQuestion({ userName, content, link });
       await db.Question.create({
         idCustomer,
         idProduct,
@@ -29,17 +31,23 @@ export const createQuestionServices = (data) => {
 
 export const getQuestionServices = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { idCustomer, idProduct } = data;
+    const { idProduct, page, limit } = data;
     try {
-      if (!idCustomer || !idProduct) {
+      if (!idProduct || !page || !limit) {
         resolve({
           errCode: 1,
           message: 'missing parameter',
         });
         return;
       }
+      let offset = (page - 1) * limit;
+      const count = await db.Question.count({
+        where: { idProduct: parseInt(idProduct) },
+      });
       const data = await db.Question.findAll({
-        where: { idProduct: parseInt(idProduct), idCustomer: parseInt(idProduct) },
+        where: { idProduct: parseInt(idProduct) },
+        offset,
+        limit: parseInt(limit),
         include: [
           {
             model: db.Customer,
@@ -51,14 +59,28 @@ export const getQuestionServices = (data) => {
           {
             model: db.Answer,
             as: 'anwerQs',
+            include: [
+              {
+                model: db.Customer,
+                as: 'answerCt',
+                attributes: {
+                  exclude: ['updatedAt', 'userName', 'password', 'shipAddress', 'phoneNumber', 'gender'],
+                },
+              },
+            ],
             attributes: {
-              exclude: ['createdAt', 'updatedAt'],
+              exclude: ['updatedAt'],
             },
           },
         ],
       });
       resolve({
         data,
+        pagination: {
+          page,
+          limit,
+          total: count,
+        },
         errCode: 0,
         message: 'get success',
       });
