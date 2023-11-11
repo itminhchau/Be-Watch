@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Brand, { foreignKey: 'idBrand', as: 'brand' });
       Product.belongsTo(models.Promotion, { foreignKey: 'idPromotion', as: 'promotion' });
       Product.hasMany(models.Review, { foreignKey: 'idProduct', as: 'review' });
-      Product.hasMany(models.Question, { foreignKey: 'idProduct', as: 'question' });
+      Product.hasMany(models.Question, { foreignKey: 'idProduct', as: 'questionPr' });
 
       // Product.belongsToMany(models.Customer, { through: models.Cart });
       Product.hasMany(models.ImageProduct, {
