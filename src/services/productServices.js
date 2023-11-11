@@ -168,7 +168,7 @@ export const deleteProductService = (productId) => {
 
 export const getFilterAllProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { idBrand, modePrice, page, limit, newProduct } = data;
+    const { idBrand, modePrice, page, limit, newProduct, bestSelling } = data;
 
     try {
       if (!page || !limit) {
@@ -191,6 +191,9 @@ export const getFilterAllProductService = (data) => {
       }
       if (modePrice === 'DESC') {
         order.push(['price', 'DESC']);
+      }
+      if (bestSelling === 'DESC') {
+        order.push(['quantitySold', 'DESC']);
       }
 
       if (newProduct === 'DESC') {
