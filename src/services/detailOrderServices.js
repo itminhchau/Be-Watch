@@ -104,7 +104,7 @@ export const getDetailOrderServices = (idCustomer) => {
               {
                 model: db.ImageProduct,
                 attributes: {
-                  exclude: ['stock', 'createdAt', 'updatedAt'],
+                  exclude: ['stock', 'createdAt', 'updatedAt', 'idColor'],
                 },
                 include: [
                   {
@@ -120,6 +120,7 @@ export const getDetailOrderServices = (idCustomer) => {
                         'idBrand',
                         'createdAt',
                         'updatedAt',
+                        'price',
                       ],
                     },
                   },
