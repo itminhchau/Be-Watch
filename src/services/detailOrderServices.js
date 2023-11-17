@@ -138,7 +138,7 @@ export const getDetailOrderServices = (idCustomer) => {
           },
         ],
       });
-
+      console.log('check push git');
       resolve({
         data: detailOrder,
         errCode: 0,
