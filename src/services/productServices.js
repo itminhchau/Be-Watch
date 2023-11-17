@@ -211,7 +211,7 @@ export const getFilterAllProductService = (data) => {
       if (newProduct === 'DESC') {
         order.push([['createdAt', 'DESC']]);
       }
-
+      console.log('add');
       const count = await db.Product.count({});
       const data = await db.Product.findAll({
         offset,
