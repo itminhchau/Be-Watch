@@ -168,7 +168,7 @@ export const deleteProductService = (productId) => {
 
 export const getFilterAllProductService = (data) => {
   return new Promise(async (resolve, reject) => {
-    const { idBrand, modePrice, page, limit, newProduct } = data;
+    const { idBrand, modePrice, page, limit, newProduct, bestSelling, arrayPrice } = data;
 
     try {
       if (!page || !limit) {
@@ -186,23 +186,39 @@ export const getFilterAllProductService = (data) => {
       if (idBrand) {
         where.idBrand = idBrand;
       }
+
+      if (arrayPrice) {
+        where[Sequelize.Op.or] = arrayPrice
+          .split('-')
+          .slice(1)
+          .map((item) => ({
+            price: {
+              [Sequelize.Op.between]: item.split(','),
+            },
+          }));
+      }
+
       if (modePrice === 'ASC') {
         order.push(['price', 'ASC']);
       }
       if (modePrice === 'DESC') {
         order.push(['price', 'DESC']);
       }
+      if (bestSelling === 'DESC') {
+        order.push(['quantitySold', 'DESC']);
+      }
 
       if (newProduct === 'DESC') {
         order.push([['createdAt', 'DESC']]);
       }
-
+      console.log('add');
       const count = await db.Product.count({});
       const data = await db.Product.findAll({
         offset,
         limit: parseInt(limit),
         where,
         order,
+
         attributes: {
           exclude: ['shortDescription', 'description', 'updatedAt'],
         },
