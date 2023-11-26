@@ -60,6 +60,8 @@ export const getAllCartServices = (idCustomer) => {
       const data = await db.Cart.findAll({
         where: { CustomerId: idCustomer },
         attributes: ['id', 'ImageProductId', 'CustomerId', 'quantity', 'status'],
+        raw: true,
+        nest: true,
         include: [
           {
             model: db.ImageProduct,
@@ -112,7 +114,6 @@ export const getAllCartServices = (idCustomer) => {
           // },
         ],
       });
-
       resolve({
         errCode: 0,
         message: 'oke',

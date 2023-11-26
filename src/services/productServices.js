@@ -59,7 +59,6 @@ export const getSingleProductService = async (id) => {
           { model: db.ImageProduct, as: 'imageProduct' },
           { model: db.Promotion, as: 'promotion' },
         ],
-
         raw: true,
         nest: true,
       });
@@ -211,9 +210,8 @@ export const getFilterAllProductService = (data) => {
       if (newProduct === 'DESC') {
         order.push([['createdAt', 'DESC']]);
       }
-      console.log('add');
       const count = await db.Product.count({});
-      const data = await db.Product.findAll({
+      const products = await db.Product.findAll({
         offset,
         limit: parseInt(limit),
         where,
@@ -238,9 +236,30 @@ export const getFilterAllProductService = (data) => {
             },
           },
         ],
+        raw: true,
+        nest: true,
       });
+
+      const uniqueProducts = {}; // Sử dụng một đối tượng để lưu trữ các sản phẩm duy nhất
+
+      products.forEach((product) => {
+        // Nếu sản phẩm chưa tồn tại trong đối tượng uniqueProducts, thêm vào
+        if (!uniqueProducts[product.id]) {
+          uniqueProducts[product.id] = {
+            ...product,
+            imageProduct: [product.imageProduct], // Gán danh sách hình ảnh cho sản phẩm
+          };
+        } else {
+          // Nếu sản phẩm đã tồn tại, chỉ cần thêm hình ảnh vào danh sách
+
+          uniqueProducts[product.id].imageProduct.push(product.imageProduct);
+        }
+      });
+
+      const formattedProducts = Object.values(uniqueProducts); // Chuyển đối tượng thành mảng
+
       resolve({
-        data,
+        data: formattedProducts,
         pagination: {
           page,
           limit,
@@ -250,11 +269,12 @@ export const getFilterAllProductService = (data) => {
         message: 'oke',
       });
     } catch (error) {
-      console.log('check error', error);
+      console.log('check error product', error);
       reject(error);
     }
   });
 };
+
 export const getProductNewService = () => {
   return new Promise(async (resolve, reject) => {
     try {

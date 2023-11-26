@@ -44,10 +44,12 @@ export const getQuestionServices = (data) => {
       const count = await db.Question.count({
         where: { idProduct: parseInt(idProduct) },
       });
-      const data = await db.Question.findAll({
+      const questions = await db.Question.findAll({
         where: { idProduct: parseInt(idProduct) },
         offset,
         limit: parseInt(limit),
+        raw: true,
+        nest: true,
         include: [
           {
             model: db.Customer,
@@ -74,8 +76,27 @@ export const getQuestionServices = (data) => {
           },
         ],
       });
+
+      const uniqueQuestion = {}; // Sử dụng một đối tượng để lưu trữ các sản phẩm duy nhất
+
+      questions.forEach((question) => {
+        // Nếu sản phẩm chưa tồn tại trong đối tượng uniqueQuestion, thêm vào
+        if (!uniqueQuestion[question.id]) {
+          uniqueQuestion[question.id] = {
+            ...question,
+            anwerQs: [question.anwerQs], // Gán danh sách hình ảnh cho sản phẩm
+          };
+        } else {
+          // Nếu sản phẩm đã tồn tại, chỉ cần thêm hình ảnh vào danh sách
+
+          uniqueQuestion[question.id].anwerQs.push(question.anwerQs);
+        }
+      });
+
+      const formattedQuestion = Object.values(uniqueQuestion); // Chuyển đối tượng thành mảng
+
       resolve({
-        data,
+        data: formattedQuestion,
         pagination: {
           page,
           limit,

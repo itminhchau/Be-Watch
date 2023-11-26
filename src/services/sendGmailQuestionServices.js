@@ -3,7 +3,7 @@ dotenv.config();
 const nodemailer = require('nodemailer');
 const sendEmailQuestion = async (data) => {
   const { userName, content, link } = data;
-  let port = process.env.PORT_CLIENT;
+  let port = process.env.URL_REACT;
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -19,9 +19,7 @@ const sendEmailQuestion = async (data) => {
   htmlContent +=
     '<tr style="background-color: #04AA6D; color: white;"><th style="border: 1px solid #dddddd; padding: 8px;">Tên</th><th style="border: 1px solid #dddddd; padding: 8px;">Nội dung</th><th style="border: 1px solid #dddddd; padding: 8px;">Link sản phẩm</th></tr>';
   // tạo nội dung gửi về cho chủ shop
-  htmlContent += `<tr><td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${userName}</td><td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${content}</td><td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${
-    process.env.PORT_CLIENT + link
-  }
+  htmlContent += `<tr><td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${userName}</td><td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${content}</td><td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${link}
  </td></tr>`;
   const owner = await transporter.sendMail({
     from: '"Watchsc 👻" <mywatchsc@gmail.com>', // sender address

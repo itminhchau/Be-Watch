@@ -54,15 +54,13 @@ export const createDetailOrdertServices = (data) => {
           );
         }
 
-        const cart = await db.Cart.findOne({
+        await db.Cart.destroy({
           where: { id: idCart },
         });
 
-        if (cart) {
-          await cart.destroy({
-            where: { id: idCart },
-          });
-        }
+        // if (cart) {
+        //   await cart.destroy();
+        // }
 
         resolve({
           errCode: 0,
@@ -92,10 +90,12 @@ export const getDetailOrderServices = (idCustomer) => {
         });
         return;
       }
-      const detailOrder = await db.Order.findAll({
+      const detailOrders = await db.Order.findAll({
         where: {
           idCustomer: idCustomer,
         },
+        raw: true,
+        nest: true,
         include: [
           {
             model: db.DetailOrder,
@@ -129,17 +129,35 @@ export const getDetailOrderServices = (idCustomer) => {
             ],
             // attributes: ['product_id', 'other_columns'], // Lấy các cột của bảng ImageProduct bạn muốn
           },
-          {
-            model: db.Customer,
-            as: 'orders',
-            attributes: {
-              exclude: ['password'],
-            },
-          },
+          // {
+          //   model: db.Customer,
+          //   as: 'orders',
+          //   attributes: {
+          //     exclude: ['password'],
+          //   },
+          // },
         ],
       });
+
+      const uniqueDetailOrders = {}; // Sử dụng một đối tượng để lưu trữ các sản phẩm duy nhất
+
+      detailOrders.forEach((detailOrder) => {
+        // Nếu sản phẩm chưa tồn tại trong đối tượng uniqueDetailOrders, thêm vào
+        if (!uniqueDetailOrders[detailOrder.id]) {
+          uniqueDetailOrders[detailOrder.id] = {
+            ...detailOrder,
+            DetailOrders: [detailOrder.DetailOrders], // Gán danh sách hình ảnh cho sản phẩm
+          };
+        } else {
+          // Nếu sản phẩm đã tồn tại, chỉ cần thêm hình ảnh vào danh sách
+
+          uniqueDetailOrders[detailOrder.id].DetailOrders.push(detailOrder.DetailOrders);
+        }
+      });
+
+      const formattedDetailOrders = Object.values(uniqueDetailOrders); // Chuyển đối tượng thành mảng
       resolve({
-        data: detailOrder,
+        data: formattedDetailOrders,
         errCode: 0,
         message: 'oke',
       });
